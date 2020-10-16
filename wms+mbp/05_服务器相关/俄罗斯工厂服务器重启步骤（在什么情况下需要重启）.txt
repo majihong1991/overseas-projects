@@ -1,0 +1,33 @@
+1.先重启数据库服务器
+10.9.193.7和10.9.193.8
+
+Oracle数据库的启动和停止步骤
+Startup Oracle:
+10.9.193.8(standby database)
+
+[root@localhost ~]# su - oracle
+[oracle@localhost ~]$ sqlplus "/as sysdba"
+
+SQL> startup mount
+SQL> alter database open read only;
+SQL> alter database recover managed standby database using current logfile disconnect;
+10.9.193.7(primary database)
+SQL>startup
+ 
+Shutdown Oracle:
+10.9.193.7(primary database)
+SQL>shutdown
+10.9.193.8(standby database)
+SQL>alter database recover managed standby database cancel;
+SQL>shutdown
+
+2.10.9.193.6是nginx服务器
+whereis nginx
+路径：/usr/local/nginx
+
+cd sbin
+
+启动：./nginx
+
+3.启3台应用服务器
+
