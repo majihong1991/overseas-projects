@@ -1,0 +1,1 @@
+select * from so_sales_order where order_code = 'GSPI202003024469'

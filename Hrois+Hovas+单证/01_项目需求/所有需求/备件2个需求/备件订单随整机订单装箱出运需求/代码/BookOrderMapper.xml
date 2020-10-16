@@ -1,0 +1,1313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="BookOrder">
+	<resultMap id="RM_BookOrder" type="com.haier.hrois.order.bookcabin.domain.BookOrder">
+         <id column="BOOK_CODE" property="bookCode" javaType="java.lang.String"/>
+        <result property="bookSendMan" column="BOOK_SEND_MAN"   />
+        <result property="bookReceiveMan" column="BOOK_RECEIVE_MAN"   />
+        <result property="bookNotifyMan" column="BOOK_NOTIFY_MAN"   />
+        <result property="vendorCode" column="VENDOR_CODE"   />
+        <result property="vendorName" column="VENDOR_NAME"   />
+        <result property="bookAgent" column="BOOK_AGENT"   />
+        <result property="bookAgentName" column="BOOK_AGENT_NAME"/>
+        <result property="bookShipDate" column="BOOK_SHIP_DATE"   />
+        <result property="bookLineDate" column="BOOK_LINE_DATE"   />
+        <result property="bookArrivalDate" column="BOOK_ARRIVAL_DATE"   />
+        <result property="bookComments" column="BOOK_COMMENTS"   />
+        <result property="bookGetComments" column="BOOK_GET_COMMENTS"   />
+        <result property="bookShipName" column="BOOK_SHIP_NAME"   />
+        <result property="bookSplitOrderCode" column="BOOK_SPLIT_ORDER_CODE"   />
+        <result property="bookArea" column="BOOK_AREA"   />
+        <result property="bookGetTimes" column="BOOK_GET_TIMES"   />
+        <result property="activeFlag" column="ACTIVE_FLAG"   />
+        <result property="createdBy" column="CREATED_BY"   />
+        <result property="created" column="CREATED"   />
+        <result property="lastUpdBy" column="LAST_UPD_BY"   />
+        <result property="lastUpd" column="LAST_UPD"   />
+        <result property="modificationNum" column="MODIFICATION_NUM"   />
+        <result property="mergeCustFlag" column="MERGE_CUST_FLAG"/>
+        <result property="mergeBillFlag" column="MERGE_BILL_FLAG"/>
+        <result property="stockNotification" column="STOCK_NOTIFICATION"/>
+        <result property="container" column="CONTAINER"/>
+        <result property="pickUpArea" column="PICKUP_AREA"/>
+        <result property="lcNum" column="LC_NUM"/>
+        <result property="waitCabin" column="WAIT_CABIN_FLAG"/>
+        <result property="forwardAgent" column="FORWARD_AGENT"/>
+        <result property="forwardAgentContact" column="FORWARD_AGENT_CONTACT"/>
+
+		<result property="fobCompanyAgent" column="FOB_COMPANY_AGENT"/>
+		<result property="fobCompanyRemarks" column="FOB_COMPANY_REMARKS"/>
+		<result property="fobUploadFlag" column="STOCK_UPLOAD_FLAG"/>
+		
+		<result property="updateOrderCode" column="UPDATE_ORDER_CODE"/>
+		<result property="orderShipCompany" column="ORDER_SHIP_COMPANY"/>
+		<result property="bookShipCompany" column="BOOK_SHIP_COMPANY"/>
+		<result property="orderManagerCode" column="ORDER_MANAGER_CODE"/>
+		<result property="orderManagerName" column="ORDER_MANAGER_NAME"/>
+		<result property="orderManagerEmail" column="ORDER_MANAGER_EMAIL"/>
+
+	</resultMap>
+	
+	
+	<sql id="pagination_Head" >
+		<![CDATA[select * from ( select row_.*, rownum rownum_ from ( ]]>
+	</sql>
+	 <!-- oracle 分页尾 -->
+	<sql id="pagination_Tail">
+	  <![CDATA[) row_ where rownum <=  #{pager.pageSize}*#{pager.currentPage} ) where rownum_ > #{pager.firstResult}]]>
+	</sql>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="BookOrder.columns">
+	    <![CDATA[
+ 		FORWARD_AGENT_CONTACT,FORWARD_AGENT,BOOK_CODE,BOOK_SEND_MAN,BOOK_RECEIVE_MAN,BOOK_NOTIFY_MAN,VENDOR_CODE,BOOK_AGENT,BOOK_SHIP_DATE,BOOK_LINE_DATE,BOOK_ARRIVAL_DATE,BOOK_COMMENTS,BOOK_SHIP_NAME,BOOK_SPLIT_ORDER_CODE,BOOK_AREA,BOOK_GET_TIMES,ACTIVE_FLAG,CREATED_BY,CREATED,LAST_UPD_BY,LAST_UPD,MODIFICATION_NUM,IF_DAMAGER,BOOK_GET_COMMENTS,MERGE_CUST_FLAG,MERGE_BILL_FLAG,PICKUP_AREA,LC_NUM,FOB_COMPANY_AGENT,FOB_COMPANY_REMARKS,STOCK_UPLOAD_FLAG
+ 	    ]]> 
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="BookOrder.insert" useGeneratedKeys="true" keyProperty="bookCode">
+    <![CDATA[
+        INSERT INTO ACT_BOOK_ORDER (
+        FORWARD_AGENT_CONTACT,FORWARD_AGENT,BOOK_CODE, BOOK_SEND_MAN, BOOK_RECEIVE_MAN, BOOK_NOTIFY_MAN, VENDOR_CODE, BOOK_AGENT, BOOK_SHIP_DATE, BOOK_LINE_DATE, BOOK_ARRIVAL_DATE, BOOK_COMMENTS, BOOK_SHIP_NAME, BOOK_SPLIT_ORDER_CODE, BOOK_AREA, BOOK_GET_TIMES, ACTIVE_FLAG, CREATED_BY, CREATED, LAST_UPD_BY, LAST_UPD, MODIFICATION_NUM, BOOK_GET_COMMENTS,MERGE_CUST_FLAG,MERGE_BILL_FLAG,STOCK_NOTIFICATION,STOCK_FLAG,PICKUP_AREA,LC_NUM,WAIT_CABIN_FLAG,FOB_COMPANY_AGENT,FOB_COMPANY_REMARKS,STOCK_UPLOAD_FLAG
+        ) VALUES (
+         #{forwardAgentContact},#{forwardAgent},#{bookCode}, #{bookSendMan}, #{bookReceiveMan}, #{bookNotifyMan}, #{vendorCode}, #{bookAgent}, #{bookShipDate}, #{bookLineDate}, #{bookArrivalDate}, #{bookComments}, #{bookShipName}, #{bookSplitOrderCode}, #{bookArea}, #{bookGetTimes}, #{activeFlag}, #{createdBy}, #{created}, #{lastUpdBy}, #{lastUpd}, #{modificationNum}, #{bookGetComments},#{mergeCustFlag},#{mergeBillFlag},#{stockNotification},#{stockFlag},#{pickUpArea},#{lcNum},#{waitCabin},#{fobCompanyAgent},#{fobCompanyRemarks},#{fobUploadFlag}
+        )
+    ]]>
+	</insert>
+    
+	<update id="BookOrder.update" >
+    <![CDATA[
+        UPDATE ACT_BOOK_ORDER SET FORWARD_AGENT_CONTACT=#{forwardAgentContact} , forward_agent= #{forwardAgent} , BOOK_SEND_MAN = #{bookSendMan} , BOOK_RECEIVE_MAN = #{bookReceiveMan} , BOOK_NOTIFY_MAN = #{bookNotifyMan} , VENDOR_CODE = #{vendorCode} , BOOK_AGENT = #{bookAgent} , BOOK_SHIP_DATE = #{bookShipDate} , BOOK_LINE_DATE = #{bookLineDate} , BOOK_ARRIVAL_DATE = #{bookArrivalDate} , BOOK_COMMENTS = #{bookComments} , BOOK_GET_COMMENTS = #{bookGetComments}, BOOK_SHIP_NAME = #{bookShipName} , BOOK_SPLIT_ORDER_CODE = #{bookSplitOrderCode} , BOOK_AREA = #{bookArea} , BOOK_GET_TIMES = #{bookGetTimes} , ACTIVE_FLAG = #{activeFlag} , CREATED_BY = #{createdBy} , CREATED = #{created} , LAST_UPD_BY = #{lastUpdBy} , LAST_UPD = #{lastUpd} , MODIFICATION_NUM = #{modificationNum},MERGE_CUST_FLAG = #{mergeCustFlag},MERGE_BILL_FLAG = #{mergeBillFlag},PICKUP_AREA = #{pickUpArea},LC_NUM = #{lcNum},STOCK_NOTIFICATION = #{stockNotification},STOCK_FLAG = #{stockFlag},FOB_COMPANY_AGENT = #{fobCompanyAgent},FOB_COMPANY_REMARKS = #{fobCompanyRemarks},STOCK_UPLOAD_FLAG = #{fobUploadFlag}
+        WHERE BOOK_CODE = #{bookCode}  	        
+    ]]>
+	</update>
+	
+<!-- 	<update id="BookOrder.cabinAgent"> -->
+<!--         UPDATE ACT_BOOK_ORDER BO SET BO.BOOK_AGENT = #{bookAgent}, BO.LAST_UPD_BY = #{lastUpdBy}, BO.LAST_UPD = #{lastUpd} -->
+<!-- 	    WHERE BO.BOOK_CODE = #{bookCode} -->
+<!-- 	</update> -->
+
+    <delete id="BookOrder.delete">
+    <![CDATA[
+        DELETE FROM ACT_BOOK_ORDER WHERE
+        BOOK_CODE = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="BookOrder.getById" resultMap="RM_BookOrder">
+       SELECT * FROM ACT_BOOK_ORDER WHERE BOOK_CODE = #{bookCode}
+    </select>
+    <select id="getBookOrderDetail" resultMap="RM_BookOrder">
+	    <![CDATA[
+	     SELECT DISTINCT BO.BOOK_CODE,BO.FORWARD_AGENT,BO.FORWARD_AGENT_CONTACT,
+              BO.BOOK_SEND_MAN,
+              BO.BOOK_RECEIVE_MAN,
+              BO.BOOK_NOTIFY_MAN,
+              BO.VENDOR_CODE,
+	          (
+	            SELECT CV.VENDOR_NAME_EN FROM CD_VENDOR CV 
+	            WHERE CV.VENDOR_CODE = BO.VENDOR_CODE 
+	            AND CV.VENDOR_TYPE = DECODE(SO.ORDER_SHIPMENT,'02','4','03','3','0')
+	          ) VENDOR_NAME,
+              BO.BOOK_AGENT,
+              BO.BOOK_SHIP_DATE,
+              BO.BOOK_LINE_DATE,
+              BO.BOOK_ARRIVAL_DATE,
+              BO.BOOK_COMMENTS,
+              BO.BOOK_GET_COMMENTS,
+              BO.BOOK_SHIP_NAME,
+              BO.BOOK_SPLIT_ORDER_CODE,
+              BO.BOOK_AREA,
+              BO.BOOK_GET_TIMES,
+              BO.ACTIVE_FLAG,
+              BO.CREATED,
+              BO.LAST_UPD_BY,
+              BO.LAST_UPD,
+              BO.MODIFICATION_NUM,
+              BO.IF_DAMAGER,
+              BO.MERGE_CUST_FLAG,
+              BO.MERGE_BILL_FLAG,
+              BO.STOCK_NOTIFICATION,
+              BV.VENDOR_NAME_CN BOOK_AGENT_NAME,
+              (
+                SELECT TO_CHAR(WM_CONCAT(SO.OBD_NAME_CN || '*' || TO_CHAR(SUM(SC.CONDITION_RATE),'FM9999999990.00')))
+                  FROM ACT_BOOK_ORDER_ITEM      AI,
+                      SO_SALES_ORDER_CONDITION SC,
+                      SYS_OBD                  SO
+                WHERE AI.ORDER_CODE = SC.ORDER_CODE
+                  AND AI.ORDER_ITEM_CODE = SC.ORDER_ITEM_LINECODE
+                  AND SC.CONDITION_CODE = SO.OBD_CODE
+                  AND SO.CONDITION_TYPE = 'A'
+                  AND SC.CONDITION_RATE > 0
+                  AND AI.BOOK_CODE = BO.BOOK_CODE
+                GROUP BY SO.OBD_NAME_CN
+              ) CONTAINER,
+              UI.NAME CREATED_BY,
+              BO.LC_NUM,
+              BO.WAIT_CABIN_FLAG,
+              BO.FOB_COMPANY_AGENT,
+              BO.FOB_COMPANY_REMARKS,
+              BO.STOCK_UPLOAD_FLAG
+         FROM ACT_BOOK_ORDER BO,ACT_BOOK_ORDER_ITEM BI,SO_SALES_ORDER SO,
+              (SELECT * FROM CD_VENDOR WHERE VENDOR_TYPE = '3') BV,
+              USER_INFO UI
+        WHERE BO.BOOK_CODE = BI.BOOK_CODE
+          AND BI.ORDER_CODE = SO.ORDER_CODE
+          AND BO.BOOK_AGENT = BV.VENDOR_CODE(+)
+          AND BO.CREATED_BY = UI.EMP_CODE(+)
+	      AND BO.BOOK_CODE = #{id} 
+	    ]]>
+	</select>
+	
+	<sql id="BookOrder.findPage.where">
+		ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类
+		<where>	      				
+	       <if test="@Ognl@isNotEmpty(bookCode)">
+				AND  BOOK_CODE= #{bookCode}
+			</if>
+	       <if test="@Ognl@isNotEmpty(bookSendMan)">
+				AND  BOOK_SEND_MAN= #{bookSendMan}
+			</if>
+	       <if test="@Ognl@isNotEmpty(bookReceiveMan)">
+				AND  BOOK_RECEIVE_MAN= #{bookReceiveMan}
+			</if>
+	       <if test="@Ognl@isNotEmpty(bookNotifyMan)">
+				AND  BOOK_NOTIFY_MAN= #{bookNotifyMan}
+			</if>
+	       <if test="@Ognl@isNotEmpty(vendorCode)">
+				AND  VENDOR_CODE= #{vendorCode}
+			</if>
+	       <if test="@Ognl@isNotEmpty(bookAgent)">
+				AND  BOOK_AGENT= #{bookAgent}
+			</if>
+	       <if test="@Ognl@isNotEmpty(bookShipDate)">
+				AND  BOOK_SHIP_DATE= #{bookShipDate}
+			</if>
+	       <if test="@Ognl@isNotEmpty(bookLineDate)">
+				AND  BOOK_LINE_DATE= #{bookLineDate}
+			</if>
+	       <if test="@Ognl@isNotEmpty(bookArrivalDate)">
+				AND  BOOK_ARRIVAL_DATE= #{bookArrivalDate}
+			</if>
+	       <if test="@Ognl@isNotEmpty(bookComments)">
+				AND  BOOK_COMMENTS= #{bookComments}
+			</if>
+	       <if test="@Ognl@isNotEmpty(bookShipName)">
+				AND  BOOK_SHIP_NAME= #{bookShipName}
+			</if>
+	       <if test="@Ognl@isNotEmpty(bookSplitOrderCode)">
+				AND  BOOK_SPLIT_ORDER_CODE= #{bookSplitOrderCode}
+			</if>
+	       <if test="@Ognl@isNotEmpty(bookArea)">
+				AND  BOOK_AREA= #{bookArea}
+			</if>
+	       <if test="@Ognl@isNotEmpty(bookGetTimes)">
+				AND  BOOK_GET_TIMES= #{bookGetTimes}
+			</if>
+	       <if test="@Ognl@isNotEmpty(activeFlag)">
+				AND  ACTIVE_FLAG= #{activeFlag}
+			</if>
+	       <if test="@Ognl@isNotEmpty(createdBy)">
+				AND  CREATED_BY= #{createdBy}
+			</if>
+	       <if test="@Ognl@isNotEmpty(created)">
+				AND  CREATED= #{created}
+			</if>
+	       <if test="@Ognl@isNotEmpty(lastUpdBy)">
+				AND  LAST_UPD_BY= #{lastUpdBy}
+			</if>
+	       <if test="@Ognl@isNotEmpty(lastUpd)">
+				AND  LAST_UPD= #{lastUpd}
+			</if>
+	       <if test="@Ognl@isNotEmpty(modificationNum)">
+				AND  MODIFICATION_NUM= #{modificationNum}
+			</if>
+		</where>
+	</sql>
+
+    <sql id="BookOrder.findTask.where">
+        <if test="@Ognl@isNotEmpty(bookCode)">
+			AND  BI.BOOK_CODE LIKE '%${bookCode}%'
+		</if>
+        <if test="@Ognl@isNotEmpty(belongOrder)">
+			AND  BI.ORDER_CODE LIKE '%${belongOrder}%'
+		</if>
+        <if test="@Ognl@isNotEmpty(paymentMethod)">
+			AND  SO.ORDER_PAYMENT_METHOD = '${paymentMethod}'
+		</if>
+        <if test="@Ognl@isNotEmpty(bookShipDate)">
+			AND  BO.BOOK_SHIP_DATE = TO_DATE('${bookShipDateStr}','yyyy-MM-dd')
+		</if>
+        <if test="@Ognl@isNotEmpty(orderDealName)">
+			AND  SO.ORDER_DEAL_TYPE = '${orderDealName}'
+	    </if>
+        <if test="@Ognl@isNotEmpty(orderShipmentName)">
+			AND  SO.ORDER_SHIPMENT = '${orderShipmentName}'
+	    </if>
+        <if test="@Ognl@isNotEmpty(countryName)">
+			AND  SO.COUNTRY_CODE = '${countryName}'
+	    </if>
+        <if test="@Ognl@isNotEmpty(vendorCode)">
+			AND  SO.VENDOR_CODE = '${vendorCode}'
+	    </if>
+        <if test="@Ognl@isNotEmpty(activeFlag)">
+			AND  BO.ACTIVE_FLAG = '${activeFlag}'
+	    </if>
+	    <if test="orderCodes != null and orderCodes.size > 0 ">
+	        AND BI.ORDER_CODE IN
+	        <foreach collection="orderCodes" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+	    </if>
+	    
+    </sql>
+    <select id="BookOrder.cabinTask.sql">
+        SELECT BI.ORDER_CODE,BO.BOOK_CODE,BO.CREATED FROM ACT_BOOK_ORDER BO,ACT_BOOK_ORDER_ITEM BI,SO_SALES_ORDER SO
+		WHERE BO.BOOK_CODE = BI.BOOK_CODE
+		AND BI.ORDER_CODE = SO.ORDER_CODE
+		<![CDATA[
+		AND (SO.ORDER_AUDIT_FLAG < 2 or SO.ORDER_AUDIT_FLAG > 2)
+		]]>
+		AND BO.ACTIVE_FLAG = 1
+		<include refid="BookOrder.findTask.where"/>
+    </select>
+    
+    
+    <select id="BookOrder.waitCabin.sql">
+        SELECT BI.ORDER_CODE,BO.BOOK_CODE,BO.CREATED FROM ACT_BOOK_ORDER BO,ACT_BOOK_ORDER_ITEM BI,SO_SALES_ORDER SO
+		WHERE BO.BOOK_CODE = BI.BOOK_CODE
+		AND BI.ORDER_CODE = SO.ORDER_CODE
+		<![CDATA[
+		AND (SO.ORDER_AUDIT_FLAG < 2 or SO.ORDER_AUDIT_FLAG > 2)
+		]]>
+		AND BO.ACTIVE_FLAG = 1
+		<include refid="BookOrder.findTask.where"/>
+    </select>
+    
+    <select id="BookOrder.cabinRedoTask.pager" resultMap="RM_BookOrder">
+		<include refid="pagination_Head"/>
+	    SELECT DISTINCT BO.* FROM ACT_BOOK_ORDER BO,ACT_BOOK_ORDER_ITEM BI,SO_SALES_ORDER SO
+		WHERE BO.BOOK_CODE = BI.BOOK_CODE
+		AND BI.ORDER_CODE = SO.ORDER_CODE
+		AND (SO.ORDER_EXEC_MANAGER = #{orderExecManager} OR SO.ORDER_TRANS_MANAGER = #{orderExecManager} )
+		AND BO.ACTIVE_FLAG = 0
+		<include refid="BookOrder.findTask.where"/>
+    	<include refid="pagination_Tail"/>
+    </select>
+    <select id="BookOrder.cabinRedoTask.pager.count" resultType="int">
+        SELECT COUNT(0) FROM (
+		    SELECT DISTINCT BO.* FROM ACT_BOOK_ORDER BO,ACT_BOOK_ORDER_ITEM BI,SO_SALES_ORDER SO
+			WHERE BO.BOOK_CODE = BI.BOOK_CODE
+			AND BI.ORDER_CODE = SO.ORDER_CODE
+			AND SO.ORDER_EXEC_MANAGER = #{orderExecManager}
+			AND BO.ACTIVE_FLAG = 0
+			<include refid="BookOrder.findTask.where"/>
+		)
+    </select>
+
+    <sql id="BookOrder.cabinOrders.sql">
+	    SELECT DISTINCT BO.BOOK_CODE,
+	            (
+	              SELECT TO_CHAR(WM_CONCAT(DISTINCT BI.ORDER_CODE))
+	               FROM ACT_BOOK_ORDER_ITEM BI
+	              WHERE BI.BOOK_CODE = BO.BOOK_CODE
+	            ) BELONG_ORDER,
+                (
+                  SELECT TO_CHAR(WM_CONCAT(DISTINCT SO.SP_ZOR))
+                   FROM SO_SALES_ORDER SO
+                  WHERE SO.SP_ZOR IS NOT NULL
+                  AND SO.ORDER_CODE IN(
+                    SELECT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI
+                    WHERE BI.BOOK_CODE = BO.BOOK_CODE
+                  )
+                ) SP_ZOR,
+	            CC.NAME CUSTOMER_NAME,
+	            PS.ITEM_NAME_EN PORT_START_NAME,
+	            CP.ENGLISH_NAME PORT_END_NAME,
+	            SM.ITEM_NAME_CN ORDER_SHIPMENT_NAME,
+	            SO.ORDER_SHIPMENT,
+                (
+                  SELECT TO_CHAR(WM_CONCAT(DISTINCT SL.TEMP1_CHAR)) FROM SYS_LOV SL
+                  WHERE SL.ITEM_TYPE = '2'
+                  AND SL.ITEM_CODE IN(
+                    SELECT SO.ORDER_DEAL_TYPE FROM SO_SALES_ORDER SO
+                    WHERE SO.ORDER_CODE IN(
+	                  SELECT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI
+	                  WHERE BI.BOOK_CODE = BO.BOOK_CODE
+                    )
+                  )
+                ) ORDER_DEAL_NAME,
+	            CTY.ALIAS COUNTRY_NAME,
+	            BO.CREATED,
+<!-- 	            SO.ORDER_PAYMENT_METHOD, -->
+<!-- 	            PM.ITEM_NAME_EN PAYMENT_METHOD, -->
+                NVL(OC.H20,0) as H20,
+              	NVL(OC.H40,0) as H40,
+              	NVL(OC.NH40,0) as NH40,
+              	NVL(OC.H45,0) as H45,
+	            BO.STOCK_NOTIFICATION,
+	            BO.BOOK_SHIP_DATE,
+	            (
+	              SELECT MAX(CV.VENDOR_NAME_EN) FROM CD_VENDOR CV 
+	              WHERE CV.VENDOR_CODE = BO.VENDOR_CODE 
+	              AND CV.ACTIVE_FLAG = '1'
+	              AND CV.VENDOR_TYPE = DECODE(SO.ORDER_SHIPMENT,'02','4','03','3','0')
+	            ) VENDOR_NAME,
+	            BA.VENDOR_NAME_EN BOOK_AGENT,
+	            OCN.AGENT_CONFIRM,
+	            OCN.INPUT_PAGER,
+	            OCN.PAGER_CONFIRM,
+	            (
+	              SELECT TO_CHAR(WM_CONCAT(DISTINCT UI.NAME)) FROM SO_SALES_ORDER SO,USER_INFO UI
+	              WHERE SO.ORDER_EXEC_MANAGER = UI.EMP_CODE(+)
+	              AND SO.ORDER_CODE IN(
+	                SELECT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI
+	                WHERE BI.BOOK_CODE = BO.BOOK_CODE
+                  )
+	            ) ORDER_EXEC_MANAGER,
+	            (
+	              SELECT TO_CHAR(WM_CONCAT(DISTINCT UI.NAME)) FROM SO_SALES_ORDER SO,USER_INFO UI
+	              WHERE SO.ORDER_TRANS_MANAGER = UI.EMP_CODE(+)
+	              AND SO.ORDER_CODE IN(
+	                SELECT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI
+	                WHERE BI.BOOK_CODE = BO.BOOK_CODE
+                  )
+	            ) NAME,
+                (
+                  SELECT COUNT(DISTINCT BI.MERGE_CUST_FLAG) FROM ACT_BOOK_ORDER_ITEM BI
+                  WHERE BI.BOOK_CODE = BO.BOOK_CODE
+                ) SUB_COUNT
+	      FROM ACT_BOOK_ORDER BO,
+	           ACT_BOOK_ORDER_ITEM BI,
+	           SO_SALES_ORDER SO,
+	           CD_CUSTOMER CC,
+	           (SELECT * FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '17') PS,
+	           CD_PORT CP,
+	           (SELECT * FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '7') SM,
+	           CD_COUNTRY CTY,
+	           (SELECT * FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '1') PM,
+	           (SELECT * FROM CD_VENDOR CV WHERE CV.VENDOR_TYPE = '3') BA,
+	           (SELECT SA.ORDER_NUM,
+	                   MAX(DECODE(SA.ACT_ID, 'agentsConfirm', DECODE(SA.STATUS_CODE,'end','结束','未结束'))) AS AGENT_CONFIRM,
+	                   MAX(DECODE(SA.ACT_ID, 'agentsInputPaper', DECODE(SA.STATUS_CODE,'end','结束','未结束'))) AS INPUT_PAGER,
+	                   MAX(DECODE(SA.ACT_ID, 'orderExeManagerConfirmPaper', DECODE(SA.STATUS_CODE,'end','结束','未结束'))) AS PAGER_CONFIRM
+	              FROM SO_ACT SA, CD_ACT_SET CS
+	             WHERE SA.ACT_ID = CS.ACT_ID AND CS.PAR_ROW = 'subProcessBookCabin'
+	             GROUP BY SA.ORDER_NUM) OCN,
+               (
+                 SELECT BI.BOOK_CODE,
+                      SUM(OC.H20) H20,
+                      SUM(OC.H40) H40,
+                      SUM(OC.NH40) NH40,
+                      SUM(OC.H45) H45
+                 FROM VI_ORDER_CNT_NUM OC,
+                      (SELECT DISTINCT BOOK_CODE, ORDER_CODE FROM ACT_BOOK_ORDER_ITEM) BI
+                 WHERE OC.ORDER_CODE = BI.ORDER_CODE
+                 and  exists (select ROW_ID from ACT_BOOK_ORDER_CNT cn where cn.order_code=BI.ORDER_CODE)
+                 GROUP BY BI.BOOK_CODE
+               ) OC
+	     WHERE BO.BOOK_CODE = BI.BOOK_CODE
+	       AND BI.ORDER_CODE = SO.ORDER_CODE
+	       AND SO.ORDER_SOLD_TO = CC.CUSTOMER_CODE(+)
+	       AND SO.PORT_START_CODE = PS.ITEM_CODE(+)
+	       AND SO.PORT_END_CODE = CP.PORT_CODE(+)
+	       AND SO.ORDER_SHIPMENT = SM.ITEM_CODE(+)
+	       AND SO.COUNTRY_CODE = CTY.COUNTRY_CODE(+)
+	       AND SO.ORDER_PAYMENT_METHOD = PM.ITEM_CODE(+)
+	       AND BO.BOOK_AGENT = BA.VENDOR_CODE(+)
+	       AND BI.ORDER_CODE = OCN.ORDER_NUM(+)
+	       AND BO.BOOK_CODE = OC.BOOK_CODE(+)
+		   AND BO.STOCK_UPLOAD_FLAG = '1'
+		<if test=" list != null and list.size > 0 ">
+			AND BI.BOOK_CODE IN 
+	        <foreach collection="list" open="(" separator="," close=")" item="item">
+	            #{item}
+	        </foreach>
+		</if>
+		<if test=" list == null or list.size == 0 ">
+		    AND 1 = 2
+		</if>
+		ORDER BY BO.CREATED DESC
+    </sql>
+    
+    <select id="BookOrder.findList" resultMap="RM_BookOrder">
+    	SELECT <include refid="BookOrder.columns" />
+	    FROM ACT_BOOK_ORDER ${tableAlias}  
+		<include refid="BookOrder.findPage.where"/>
+    </select>
+    
+    
+    <select id="BookOrder.findCabinList" resultMap="RM_BookOrderQuery">
+        <include refid="BookOrder.cabinOrders.sql"/>
+    </select>
+    
+    <!-- FOB货代入货通知单 -->
+    <select id="BookOrder.findFobNoticeList" resultMap="RM_BookOrderQuery">
+        SELECT DISTINCT BO.BOOK_CODE,
+	            (
+	              SELECT TO_CHAR(WM_CONCAT(DISTINCT BI.ORDER_CODE))
+	               FROM ACT_BOOK_ORDER_ITEM BI
+	              WHERE BI.BOOK_CODE = BO.BOOK_CODE
+	            ) BELONG_ORDER,
+                (
+                  SELECT TO_CHAR(WM_CONCAT(DISTINCT SO.SP_ZOR))
+                   FROM SO_SALES_ORDER SO
+                  WHERE SO.SP_ZOR IS NOT NULL
+                  AND SO.ORDER_CODE IN(
+                    SELECT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI
+                    WHERE BI.BOOK_CODE = BO.BOOK_CODE
+                  )
+                ) SP_ZOR,
+	            CC.NAME CUSTOMER_NAME,
+	            PS.ITEM_NAME_EN PORT_START_NAME,
+	            CP.ENGLISH_NAME PORT_END_NAME,
+	            SM.ITEM_NAME_CN ORDER_SHIPMENT_NAME,
+	            SO.ORDER_SHIPMENT,
+                (
+                  SELECT TO_CHAR(WM_CONCAT(DISTINCT SL.TEMP1_CHAR)) FROM SYS_LOV SL
+                  WHERE SL.ITEM_TYPE = '2'
+                  AND SL.ITEM_CODE IN(
+                    SELECT SO.ORDER_DEAL_TYPE FROM SO_SALES_ORDER SO
+                    WHERE SO.ORDER_CODE IN(
+	                  SELECT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI
+	                  WHERE BI.BOOK_CODE = BO.BOOK_CODE
+                    )
+                  )
+                ) ORDER_DEAL_NAME,
+	            CTY.ALIAS COUNTRY_NAME,
+	            BO.CREATED,
+<!-- 	            SO.ORDER_PAYMENT_METHOD, -->
+<!-- 	            PM.ITEM_NAME_EN PAYMENT_METHOD, -->
+                NVL(OC.H20,0) as H20,
+              	NVL(OC.H40,0) as H40,
+              	NVL(OC.NH40,0) as NH40,
+              	NVL(OC.H45,0) as H45,
+	            BO.STOCK_NOTIFICATION,
+	            BO.BOOK_SHIP_DATE,
+	            (
+	              SELECT MAX(CV.VENDOR_NAME_EN) FROM CD_VENDOR CV 
+	              WHERE CV.VENDOR_CODE = BO.VENDOR_CODE 
+	              AND CV.ACTIVE_FLAG = '1'
+	              AND CV.VENDOR_TYPE = DECODE(SO.ORDER_SHIPMENT,'02','4','03','3','0')
+	            ) VENDOR_NAME,
+	            BA.VENDOR_NAME_EN BOOK_AGENT,
+	            OCN.AGENT_CONFIRM,
+	            OCN.INPUT_PAGER,
+	            OCN.PAGER_CONFIRM,
+	            (
+	              SELECT TO_CHAR(WM_CONCAT(DISTINCT UI.NAME)) FROM SO_SALES_ORDER SO,USER_INFO UI
+	              WHERE SO.ORDER_EXEC_MANAGER = UI.EMP_CODE(+)
+	              AND SO.ORDER_CODE IN(
+	                SELECT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI
+	                WHERE BI.BOOK_CODE = BO.BOOK_CODE
+                  )
+	            ) ORDER_EXEC_MANAGER,
+	            (
+	              SELECT TO_CHAR(WM_CONCAT(DISTINCT UI.NAME)) FROM SO_SALES_ORDER SO,USER_INFO UI
+	              WHERE SO.ORDER_TRANS_MANAGER = UI.EMP_CODE(+)
+	              AND SO.ORDER_CODE IN(
+	                SELECT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI
+	                WHERE BI.BOOK_CODE = BO.BOOK_CODE
+                  )
+	            ) NAME,
+                (
+                  SELECT COUNT(DISTINCT BI.MERGE_CUST_FLAG) FROM ACT_BOOK_ORDER_ITEM BI
+                  WHERE BI.BOOK_CODE = BO.BOOK_CODE
+                ) SUB_COUNT
+	      FROM ACT_BOOK_ORDER BO,
+	           ACT_BOOK_ORDER_ITEM BI,
+	           SO_SALES_ORDER SO,
+	           CD_CUSTOMER CC,
+	           (SELECT * FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '17') PS,
+	           CD_PORT CP,
+	           (SELECT * FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '7') SM,
+	           CD_COUNTRY CTY,
+	           (SELECT * FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '1') PM,
+	           (SELECT * FROM CD_VENDOR CV WHERE CV.VENDOR_TYPE = '3') BA,
+	           (SELECT SA.ORDER_NUM,
+	                   MAX(DECODE(SA.ACT_ID, 'agentsConfirm', DECODE(SA.STATUS_CODE,'end','结束','未结束'))) AS AGENT_CONFIRM,
+	                   MAX(DECODE(SA.ACT_ID, 'agentsInputPaper', DECODE(SA.STATUS_CODE,'end','结束','未结束'))) AS INPUT_PAGER,
+	                   MAX(DECODE(SA.ACT_ID, 'orderExeManagerConfirmPaper', DECODE(SA.STATUS_CODE,'end','结束','未结束'))) AS PAGER_CONFIRM
+	              FROM SO_ACT SA, CD_ACT_SET CS
+	             WHERE SA.ACT_ID = CS.ACT_ID AND CS.PAR_ROW = 'subProcessBookCabin'
+	             GROUP BY SA.ORDER_NUM) OCN,
+               (
+                 SELECT BI.BOOK_CODE,
+                      SUM(OC.H20) H20,
+                      SUM(OC.H40) H40,
+                      SUM(OC.NH40) NH40,
+                      SUM(OC.H45) H45
+                 FROM VI_ORDER_CNT_NUM OC,
+                      (SELECT DISTINCT BOOK_CODE, ORDER_CODE FROM ACT_BOOK_ORDER_ITEM) BI
+                 WHERE OC.ORDER_CODE = BI.ORDER_CODE
+                 and  exists (select ROW_ID from ACT_BOOK_ORDER_CNT cn where cn.order_code=BI.ORDER_CODE)
+                 GROUP BY BI.BOOK_CODE
+               ) OC
+	     WHERE BO.BOOK_CODE = BI.BOOK_CODE
+	       AND BI.ORDER_CODE = SO.ORDER_CODE
+	       AND SO.ORDER_SOLD_TO = CC.CUSTOMER_CODE(+)
+	       AND SO.PORT_START_CODE = PS.ITEM_CODE(+)
+	       AND SO.PORT_END_CODE = CP.PORT_CODE(+)
+	       AND SO.ORDER_SHIPMENT = SM.ITEM_CODE(+)
+	       AND SO.COUNTRY_CODE = CTY.COUNTRY_CODE(+)
+	       AND SO.ORDER_PAYMENT_METHOD = PM.ITEM_CODE(+)
+	       AND BO.BOOK_AGENT = BA.VENDOR_CODE(+)
+	       AND BI.ORDER_CODE = OCN.ORDER_NUM(+)
+	       AND BO.BOOK_CODE = OC.BOOK_CODE(+)
+	       AND BO.FOB_COMPANY_AGENT = '2'
+		   AND (BO.STOCK_UPLOAD_FLAG = '0' OR BO.STOCK_UPLOAD_FLAG IS NULL)
+		<if test=" list != null and list.size > 0 ">
+			AND BI.BOOK_CODE IN 
+	        <foreach collection="list" open="(" separator="," close=")" item="item">
+	            #{item}
+	        </foreach>
+		</if>
+		<if test=" list == null or list.size == 0 ">
+		    AND 1 = 2
+		</if>
+		ORDER BY BO.CREATED DESC
+    </select>
+    
+    
+    <!-- 订单确认通过订单ID,生成订单确认主体信息 -->
+    <select id="findByOrderCode" resultMap="RM_BookOrder">
+        SELECT * FROM ACT_BOOK_ORDER
+        WHERE BOOK_CODE = (
+           SELECT DISTINCT(BOOK_CODE) FROM ACT_BOOK_ORDER_ITEM
+           WHERE ORDER_CODE = #{orderCode}
+        )
+    </select>
+	
+	
+	<!-- 订舱 货代  接口  WebService -->
+	<resultMap id="bookCabinMap" type="com.haier.hrois.datatrans.domain.BookCabin">
+	    <result property="bookCode" column="BOOK_CODE"/>
+	    <result property="bookAgent" column="BOOK_AGENT"/>
+	    <result property="portStartName" column="PORT_START_NAME"/>
+	    <result property="portEndName" column="PORT_END_NAME"/>
+	    <result property="vendorName" column="VENDOR_NAME"/>
+	    <result property="orderShipDate" column="ORDER_SHIP_DATE"/>
+	    <result property="dealType" column="DEAL_TYPE"/>
+	    <result property="shipmentType" column="SHIPMENT_TYPE"/>
+	    <result property="sendMan" column="SEND_MAN"/>
+	    <result property="receiveMan" column="RECEIVE_MAN"/>
+	    <result property="bookComments" column="BOOK_COMMENTS"/>
+	    <result property="bookGetComments" column="BOOK_GET_COMMENTS"/>
+	    <result property="lastUpd" column="LAST_UPD"/>
+	    <result property="mergeCustFlag" column="MERGE_CUST_FLAG"/>
+	    <result property="mergeBillFlag" column="MERGE_BILL_FLAG"/>
+	    <result property="mount" column="MOUNT"/>
+	    <result property="count" column="COUNT"/>
+	    <result property="weight" column="WEIGHT"/>
+	    <result property="mesurement" column="MESUREMENT"/>
+	    <collection property="bookCabinItems" column="BOOK_CODE" select="BookOrderItem.findCabinItems"/>
+	</resultMap>
+    <!-- 货代公司获取订舱信息 -->
+	<select id="getCabinInfo" resultMap="bookCabinMap">
+      SELECT BO.BOOK_CODE,
+          BO.BOOK_AGENT,
+          BO.BOOK_SHIP_DATE,
+          DECODE(CP.ENGLISH_NAME, NULL, ' ', CP.PORT_CODE || '-' || CP.ENGLISH_NAME) PORT_START_NAME,
+          DECODE(CPP.ENGLISH_NAME,NULL,' ', CPP.PORT_CODE || '-' || CPP.ENGLISH_NAME) PORT_END_NAME,
+          DECODE(CV.VENDOR_NAME_CN,NULL,' ',CV.VENDOR_CODE || '-' || CV.VENDOR_NAME_CN) VENDOR_NAME,
+          SO.ORDER_SHIP_DATE,
+          DT.ITEM_NAME_CN DEAL_TYPE,
+          OS.ITEM_NAME_CN SHIPMENT_TYPE,
+          BO.BOOK_SEND_MAN SEND_MAN,
+          CC.NAME RECEIVE_MAN,
+          BO.BOOK_COMMENTS,
+          BO.BOOK_GET_COMMENTS,
+          BO.LAST_UPD,
+          BO.MERGE_CUST_FLAG,
+          BO.MERGE_BILL_FLAG,
+          BI.GOODS_AMOUNT MOUNT,
+          BI.GOODS_COUNT COUNT,
+          BI.GOODS_GROSS_WEIGHT WEIGHT,
+          BI.GOODS_MESUREMENT MESUREMENT,
+          ( SELECT TO_CHAR(WM_CONCAT(SO.OBD_NAME_EN || '*' || TO_CHAR(SUM(SC.CONDITION_RATE),'FM9999999990.00')))
+                FROM ACT_BOOK_ORDER_ITEM AI, SO_SALES_ORDER_CONDITION SC, SYS_OBD SO
+            WHERE AI.ORDER_CODE = SC.ORDER_CODE
+                AND AI.ORDER_ITEM_CODE = SC.ORDER_ITEM_LINECODE
+                AND SC.CONDITION_CODE = SO.OBD_CODE
+                AND SO.CONDITION_TYPE = 'A'
+                AND SC.CONDITION_RATE > 0
+                AND AI.BOOK_CODE = BO.BOOK_CODE
+                GROUP BY SO.OBD_NAME_EN
+          ) CONTAINER
+      FROM SO_ACT SA,
+          SO_SALES_ORDER SO,
+          (SELECT BI.BOOK_CODE,
+               MAX(BI.ORDER_CODE) ORDER_CODE,
+               SUM(NVL(BI.GOODS_AMOUNT,0)) GOODS_AMOUNT,
+               SUM(NVL(BI.GOODS_COUNT,0)) GOODS_COUNT,
+               SUM(NVL(BI.GOODS_GROSS_WEIGHT,0)) GOODS_GROSS_WEIGHT,
+               SUM(NVL(BI.GOODS_MESUREMENT,0)) GOODS_MESUREMENT
+           FROM ACT_BOOK_ORDER_ITEM BI
+           GROUP BY BI.BOOK_CODE
+          ) BI,
+          ACT_BOOK_ORDER BO,
+          CD_VENDOR CV,
+          CD_PORT CP,
+          CD_PORT CPP,
+          ( SELECT * FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '2' AND SL.ACTIVE_FLAG = '1' ) DT,
+          ( SELECT * FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '7' AND SL.ACTIVE_FLAG = '1' ) OS,
+          CD_CUSTOMER CC
+      WHERE SA.ORDER_NUM = SO.ORDER_CODE
+          AND SA.ACT_ID = 'boonAgent'
+          AND SA.STATUS_CODE = 'end'
+          AND SO.ORDER_CODE = BI.ORDER_CODE
+          AND BI.BOOK_CODE = BO.BOOK_CODE
+          AND SO.PORT_START_CODE = CP.PORT_CODE(+)
+          AND SO.PORT_END_CODE = CPP.PORT_CODE(+)
+          AND SO.ORDER_DEAL_TYPE = DT.ITEM_CODE(+)
+          AND SO.ORDER_SHIPMENT = OS.ITEM_CODE(+)
+          AND SO.ORDER_SOLD_TO = CC.CUSTOMER_CODE(+)
+          AND SO.VENDOR_CODE = CV.VENDOR_CODE(+)
+          AND BO.BOOK_AGENT = #{agentCode}
+	</select>
+	
+	<!-- 货代公司确认订舱 -->
+	<update id="cabinConfirm">
+        UPDATE ACT_BOOK_ORDER BO
+           SET BO.AGENT_ACCEPT_FLAG    = #{auditFlag},
+             BO.ACCEPT_DATE    = SYSDATE,
+             BO.REASON_REJECTTION = #{auditContent}
+        WHERE BO.BOOK_CODE = #{bookCode}
+	</update>
+	<!-- 订舱 货代  接口  WebService -->
+	
+	<!-- 货代接收  查询运费 -->
+	<select id="BookOrder.queryPrice.count" resultType="long">
+        select SUM(T.CONDITION_VALUE)
+		  from so_sales_order_condition t,
+		       sys_obd                  s,
+		       act_book_order           b,
+		       act_book_order_item      bi
+		 where t.condition_code = s.obd_code
+		   and s.condition_type = 'A'
+		   and bi.book_code = b.book_code
+		   and t.order_code = bi.order_code
+		   and b.book_code =   #{bookCode}
+    </select>
+	
+	<resultMap id="RM_BookOrderQuery" type="com.haier.hrois.order.bookcabin.query.BookOrderQuery">
+	    <result property="bookCode" column="BOOK_CODE"/>
+	    <result property="bookSendMan" column="BOOK_SEND_MAN"/>
+	    <result property="customerName" column="CUSTOMER_NAME"/>
+	    <result property="countryName" column="COUNTRY_NAME"/>
+	    <result property="portStartName" column="PORT_START_NAME"/>
+	    <result property="portEndName" column="PORT_END_NAME"/>
+	    <result property="paymentMethod" column="PAYMENT_METHOD"/>
+	    <result property="orderDealName" column="ORDER_DEAL_NAME"/>
+	    <result property="bookShipDate" column="BOOK_SHIP_DATE"/>
+	    <result property="orderShipmentName" column="ORDER_SHIPMENT_NAME"/>
+	    <result property="orderShipment" column="ORDER_SHIPMENT"/>
+	    <result property="container" column="CONTAINER"/>
+	    <result property="belongOrder" column="BELONG_ORDER"/>
+	    <result property="agentConfirm" column="AGENT_CONFIRM"/>
+	    <result property="inputPager" column="INPUT_PAGER"/>
+	    <result property="pagerConfirm" column="PAGER_CONFIRM"/>
+        <result property="stockNotification" column="STOCK_NOTIFICATION"/>
+        <result property="bookAgent" column="BOOK_AGENT"/>
+        <result property="created" column="CREATED"/>
+        <result property="vendorName" column="VENDOR_NAME"/>
+        <result property="orderExecManager" column="ORDER_EXEC_MANAGER"/>
+        <result property="subCount" column="SUB_COUNT"/>
+        <result property="h20" column="H20"/>
+        <result property="h40" column="H40"/>
+        <result property="nh40" column="NH40"/>
+        <result property="h45" column="H45"/>
+        <result property="lcNum" column="LC_NUM"/>
+        <result property="spZor" column="SP_ZOR"/>
+        <result property="bookGetComments" column="BOOK_GET_COMMENTS"   />
+        <result property="bookReceiveMan" column="BOOK_RECEIVE_MAN"   />
+        <result property="vendorCode" column="VENDOR_CODE"   />
+        <result property="waitCabin" column="WAIT_CABIN_FLAG"   />
+	</resultMap>
+	
+	<!-- ################################################  订舱单数据抓取########################################### -->
+	<!-- 订舱单   主数据查询 -->
+	<select id="findCabinPaperMain" resultType="java.util.Map">
+	     SELECT DISTINCT BO.BOOK_SEND_MAN,
+	           BO.MERGE_CUST_FLAG,
+	           BO.MERGE_BILL_FLAG,
+	           BO.BOOK_RECEIVE_MAN,
+	           BO.BOOK_NOTIFY_MAN,
+	           TO_CHAR(BO.BOOK_SHIP_DATE,'yyyy-MM-dd') ORDER_SHIP_DATE,
+               ( 
+                 SELECT TO_CHAR(MIN(SO.ORDER_CUSTOM_DATE),'yyyy-MM-dd') FROM SO_SALES_ORDER SO 
+                 WHERE SO.ORDER_CODE IN( 
+                   SELECT DISTINCT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI 
+                   WHERE BI.BOOK_CODE = BO.BOOK_CODE
+                 ) 
+               ) ORDER_CUSTOM_DATE,
+	           SP.VESSEL,
+	           SP.VOYNO,
+	           SL.ITEM_NAME_EN PORT_START,
+	           CP.ENGLISH_NAME PORT_END,
+	           SP.SHIP_UPLOAD_PORT,
+	           SP.SHIP_DOWN_PORT,
+	           SP.SHIP_DESTINATION,
+	           BO.VENDOR_CODE,
+	           (
+	             SELECT CV.VENDOR_NAME_EN FROM CD_VENDOR CV 
+	             WHERE CV.VENDOR_CODE = BO.VENDOR_CODE 
+	             AND CV.VENDOR_TYPE = DECODE(SO.ORDER_SHIPMENT,'02','4','03','3','0')
+	           ) VENDOR_NAME_EN,
+	           SO.ORDER_PAYMENT_METHOD,
+	           SO.DUCK,
+	           PT.ITEM_NAME_CN ORDER_PAYMENT_METHOD_NAME,
+	           SO.ORDER_DEAL_TYPE,
+	           DT.ITEM_NAME_CN ORDER_DEAL_TYPE_NAME,
+	           SP.STATION,
+	           SP.CONTACTS_MAN,
+	           SP.CONTACTS_PHONE,
+	           BO.BOOK_CODE,
+	           SO.ORDER_EXEC_MANAGER,
+	           EM.NAME ORDER_EXEC_MANAGER_NAME,
+	           TM.NAME ORDER_TRANS_MANAGER_NAME,
+	           PM.NAME ORDER_PROD_MANAGER_NAME,
+	           RM.NAME ORDER_DOC_MANAGER_NAME,
+	           '' 交货地点,
+	           BO.BOOK_GET_COMMENTS,
+	           BO.BOOK_COMMENTS,
+	           TO_CHAR(SYSDATE,'yyyy-MM-dd') CURRENT_DATE,
+	           BO.BOOK_GET_TIMES,
+	           CC.ALIAS COUNTRY_NAME,
+	           (
+	               SELECT TO_CHAR(WM_CONCAT(SO.OBD_NAME_CN || '*' || TO_CHAR(SUM(SC.CONDITION_RATE), 'FM9999999990.00')))
+	               FROM SO_SALES_ORDER_CONDITION SC,
+	                    SYS_OBD                  SO
+	               WHERE SC.CONDITION_CODE = SO.OBD_CODE
+	                    AND SO.CONDITION_TYPE = 'A'
+	                    AND SC.CONDITION_RATE > 0
+	                    AND SC.ORDER_CODE IN(
+	                         SELECT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI
+	                         WHERE BI.BOOK_CODE = BO.BOOK_CODE
+	                         <if test="mergeCustFlag != null ">
+	                         AND BI.MERGE_CUST_FLAG = #{mergeCustFlag}
+	                         </if>
+	                    )
+	               GROUP BY SO.OBD_NAME_CN
+	           ) CONTAINERS,
+	           (
+	             SELECT COUNT(DISTINCT BI.ORDER_CODE) FROM ACT_BOOK_ORDER_ITEM BI WHERE BI.BOOK_CODE = BO.BOOK_CODE
+	           ) ORDER_SIZE,
+	           TO_CHAR(SA.PLAN_FINISH_DATE,'yyyy-MM-dd') PLAN_FINISH_DATE,
+	           SP.SHIP_PAPER_CODE BILL_NUM,
+	           SSO.INVOICE_NUM,
+               (
+                 SELECT TO_CHAR( WM_CONCAT( SO.ORDER_CODE || ':' || SO.ORDER_PO_CODE ) ) FROM SO_SALES_ORDER SO
+                 WHERE SO.ORDER_CODE IN(
+                   SELECT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI
+                   WHERE BI.BOOK_CODE = BO.BOOK_CODE
+                 )
+               ) BOOK_PO_CODE,
+               BO.LC_NUM
+	      FROM ACT_BOOK_ORDER      BO,
+	           ACT_SHIP_PAPER      SP,
+	           ACT_BOOK_ORDER_ITEM BI,
+	           SO_SALES_ORDER      SO,
+	           (
+	             SELECT * FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '1'
+	           ) PT,
+	           (
+	             SELECT * FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '2'
+	           ) DT,
+	           USER_INFO EM,
+	           USER_INFO TM,
+	           USER_INFO PM,
+	           USER_INFO RM,
+	           CD_COUNTRY CC,
+	           (
+	             SELECT * FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '17'
+	           ) SL,
+	           CD_PORT CP,
+	           (
+	             SELECT BI.BOOK_CODE,MIN(SA.PLAN_FINISH_DATE) PLAN_FINISH_DATE FROM SO_ACT SA,ACT_BOOK_ORDER_ITEM BI
+	             WHERE SA.ACT_ID = 'orderExeManagerConfirmPaper'
+	             AND SA.ORDER_NUM = BI.ORDER_CODE
+	             GROUP BY BI.BOOK_CODE
+	           )SA,
+	           (
+	             SELECT BI.BOOK_CODE,MAX(SSO.INVOICE_NUM) INVOICE_NUM FROM SO_SALES_ORDER SSO,ACT_BOOK_ORDER_ITEM BI
+	             WHERE SSO.ORDER_CODE = BI.ORDER_CODE
+	             GROUP BY BI.BOOK_CODE
+	           ) SSO
+	     WHERE BO.BOOK_CODE = SP.BOOK_CODE(+)
+	       AND BO.BOOK_CODE = BI.BOOK_CODE
+	       AND BI.ORDER_CODE = SO.ORDER_CODE
+	       AND SO.ORDER_PAYMENT_METHOD = PT.ITEM_CODE(+)
+	       AND SO.ORDER_DEAL_TYPE = DT.ITEM_CODE(+)
+	       AND SO.ORDER_EXEC_MANAGER = EM.EMP_CODE(+)
+	       AND SO.ORDER_TRANS_MANAGER = TM.EMP_CODE(+)
+	       AND SO.ORDER_PROD_MANAGER = PM.EMP_CODE(+)
+	       AND SO.ORDER_DOC_MANAGER = RM.EMP_CODE(+)
+	       AND SO.COUNTRY_CODE = CC.COUNTRY_CODE(+)
+	       AND SO.PORT_START_CODE = SL.ITEM_CODE(+)
+	       AND SO.PORT_END_CODE = CP.PORT_CODE(+)
+	       AND BO.BOOK_CODE = SA.BOOK_CODE(+)
+	       AND BO.BOOK_CODE = SSO.BOOK_CODE(+)
+	       AND ROWNUM = 1
+	       AND BI.BOOK_CODE = #{bookCode}
+	       <if test="mergeCustFlag != null ">
+	       AND BI.MERGE_CUST_FLAG = #{mergeCustFlag}
+	       </if>
+	</select>
+	<!-- 订舱单   主数据查询 -->
+	<!-- 订舱单  明细数据查询 -->
+	<select id="findCabinPaperItem" resultType="java.util.Map">
+		SELECT BI.ORDER_CODE,
+		   BI.GOODS_COUNT,
+		   SI.UNIT,
+	       CD.DEPT_NAME_CN,
+	       SI.CUSTOMER_MODEL,
+	       round(BI.GOODS_GROSS_WEIGHT,2) as GOODS_GROSS_WEIGHT, --订舱页面、订舱单、下货纸、报关箱单发票的毛净重显示并只能显示两位小数 2014/10/13
+	       BI.GOODS_MESUREMENT,
+	       BI.MARKS,
+	       BI.GOODS_DESC,
+	       BI.HS_CODE,
+	       BI.MERGE_CUST_FLAG
+	    FROM ACT_BOOK_ORDER_ITEM BI, SO_SALES_ORDER_ITEM SI,(SELECT * FROM CD_DEPARTMENT CD WHERE CD.DEPT_TYPE = '0' ) CD
+		WHERE BI.ORDER_CODE = SI.ORDER_CODE(+)
+		   AND BI.ORDER_ITEM_CODE = SI.ORDER_ITEM_LINECODE(+)
+		   AND SI.FACTORY_CODE = CD.DEPT_CODE(+)
+		   AND BI.BOOK_CODE = #{bookCode}
+	       <if test="mergeCustFlag != null ">
+	       AND BI.MERGE_CUST_FLAG = #{mergeCustFlag}
+	       </if>
+	</select>
+	<!-- 订舱单  明细数据查询 -->
+	<!-- 订舱单  明细数据合计查询 -->
+	<select id="findCabinPaperItemTotal" resultType="java.util.Map">
+		SELECT '合计:' CUSTOMER_MODEL,SUM(NVL(BI.GOODS_COUNT,0)) GOODS_COUNT,ROUND(SUM(NVL(BI.GOODS_GROSS_WEIGHT,0)),2) GOODS_GROSS_WEIGHT,SUM(NVL(BI.GOODS_MESUREMENT,0)) GOODS_MESUREMENT FROM ACT_BOOK_ORDER_ITEM BI 
+		WHERE BI.BOOK_CODE = #{bookCode}
+        <if test="mergeCustFlag != null ">
+        AND BI.MERGE_CUST_FLAG = #{mergeCustFlag}
+        </if>
+	</select>
+	<!-- 订舱单  明细数据合计查询 -->
+	<!-- ################################################  订舱单数据抓取  ########################################### -->
+	
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   订单合并订舱   校验数据   抓取        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	<!-- 客户、出运期、出运方式、船公司、始发港、目的港、出运经理、国家、销售组织、付款方式、经营主体、付款周期 -->
+	<select id="findMergeOrder" resultType="map">
+		SELECT SO.ORDER_CODE,
+		     SO.ORDER_TYPE,
+             SO.ORDER_SOLD_TO,
+             CUST.NAME ORDER_SOLD_TO_NAME,
+             TO_CHAR(SO.ORDER_SHIP_DATE,'yyyy-MM-dd') ORDER_SHIP_DATE,
+             SO.ORDER_SHIPMENT,
+             SM.ITEM_NAME_CN ORDER_SHIPMENT_NAME,
+             SO.VENDOR_CODE,
+	         (
+	           SELECT CV.VENDOR_NAME_EN FROM CD_VENDOR CV 
+	           WHERE CV.VENDOR_CODE = SO.VENDOR_CODE 
+	           AND CV.VENDOR_TYPE = DECODE(SO.ORDER_SHIPMENT,'02','4','03','3','0')
+	         ) VENDOR_NAME,
+             SO.PORT_START_CODE,
+             SP.ITEM_NAME_EN PORT_START_NAME,
+             SO.PORT_END_CODE,
+             CP.ENGLISH_NAME PORT_END_NAME,
+             SO.ORDER_TRANS_MANAGER,
+             UI.NAME ORDER_TRANS_MANAGER_NAME,
+             SO.ORDER_SHIP_TO,
+             CT.NAME ORDER_SHIP_TO_NAME,
+             SO.COUNTRY_CODE,
+             CTY.NAME COUNTRY_NAME,
+             SO.SALES_ORG_CODE,
+             CSO.SALE_ORG_NAME,
+             SO.ORDER_PAYMENT_TERMS,
+             CD.OPERATORS_CODE,
+             CD.OPERATORS,
+             PT.TERMS_DESC,
+             SO.ORDER_DOC_MANAGER,
+             DM.NAME DOC_MANAGER_NAME,
+             SO.ORDER_DEAL_TYPE
+        FROM SO_SALES_ORDER SO,
+             CM_CONTRACT CC,
+             CD_PAYMENT_TERMS PT1,
+             CD_PAYMENT_TERMS PT2,
+             (
+              
+				SELECT DISTINCT SI.ORDER_CODE,
+				                DECODE(SI.ORDER_OPERATORS_CODE,
+				                       NULL,
+				                       CD.OPERATORS_CODE,
+				                       '',
+				                       CD.OPERATORS_CODE,
+				                       SUBSTR(SI.ORDER_OPERATORS_CODE, -4)) AS OPERATORS_CODE,
+				                DECODE(SI.ORDER_OPERATORS_NAME,
+				                       NULL,
+				                       CD.OPERATORS,
+				                       '',
+				                       CD.OPERATORS,
+				                       SI.ORDER_OPERATORS_NAME) AS OPERATORS
+				  FROM SO_SALES_ORDER_ITEM SI,
+				       (SELECT T.DEPT_CODE,
+				               DECODE(T.OPERATORS_CODE,
+				                      '9100000300',
+				                      '6120',
+				                      '9100000302',
+				                      '6130',
+				                      '9100000301',
+				                      '6140',
+				                      T.OPERATORS_CODE) AS OPERATORS_CODE,
+				               T.OPERATORS
+				          FROM CD_DEPARTMENT T
+				         WHERE T.DEPT_TYPE = '0') CD
+				 WHERE SI.FACTORY_CODE = CD.DEPT_CODE(+)
+             ) CD,
+             CD_PORT CP,
+             ( SELECT  * FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '17' )SP,
+             ( SELECT *FROM SYS_LOV SL WHERE SL.ITEM_TYPE = '7' ) SM,
+             CD_CUSTOMER CUST,
+             CD_CUSTOMER CT,
+             USER_INFO UI,
+             CD_COUNTRY CTY,
+             CD_SALE_ORG CSO,
+             CD_PAYMENT_TERMS PT,
+             USER_INFO DM
+       WHERE SO.CONTRACT_CODE = CC.CONTRACT_CODE(+)
+         AND SO.ORDER_PAYMENT_TERMS = PT1.TERMS_CODE(+)
+         AND NVL(CC.CONTRACT_PAYCONDITION, '6000') = PT2.TERMS_CODE(+)
+         AND SO.ORDER_CODE = CD.ORDER_CODE(+)
+         AND SO.PORT_END_CODE = CP.PORT_CODE(+)
+         AND SO.PORT_START_CODE = SP.ITEM_CODE(+)
+         AND SO.ORDER_SHIPMENT = SM.ITEM_CODE(+)
+         AND SO.ORDER_SOLD_TO = CUST.CUSTOMER_CODE(+)
+         AND SO.ORDER_SHIP_TO = CT.CUSTOMER_CODE(+)
+         AND SO.ORDER_TRANS_MANAGER = UI.EMP_CODE(+)
+         AND SO.COUNTRY_CODE = CTY.COUNTRY_CODE(+)
+         AND SO.SALES_ORG_CODE = CSO.SALE_ORG_CODE(+)
+         AND SO.ORDER_PAYMENT_TERMS = PT.TERMS_CODE(+)
+         AND SO.ORDER_DOC_MANAGER = DM.EMP_CODE(+)
+         AND SO.ORDER_CODE IN
+         <foreach collection="array" open="(" separator="," close=")" item="item">
+             #{item}
+         </foreach>
+	</select>
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   订单合并订舱   校验数据   抓取        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	
+	<!-- ******************************************   更新订舱入货通知单       *********************************************** -->
+	<update id="updateStockNotification">
+		UPDATE ACT_BOOK_ORDER BO SET BO.STOCK_NOTIFICATION = #{stockNotification} ,BO.STOCK_FLAG = 1, BO.STOCK_UPLOAD_FLAG = 1  WHERE BO.BOOK_CODE = #{bookCode}
+	</update>
+	<!-- ******************************************   更新订舱入货通知单       *********************************************** -->
+	
+	<!-- #######################################    通过订单号更新订舱船公司      ############################################# -->
+	<update id="updateVendorCodeByOrderCode">
+		UPDATE ACT_BOOK_ORDER BO SET BO.VENDOR_CODE = #{vendorCode}
+		WHERE BO.BOOK_CODE IN(
+		   SELECT DISTINCT BI.BOOK_CODE FROM ACT_BOOK_ORDER_ITEM BI
+		   WHERE BI.ORDER_CODE IN
+           <foreach collection="codes" open="(" separator="," close=")" item="item">
+               #{item}
+           </foreach>
+		)
+	</update>
+	<!-- #######################################    通过订单号更新订舱船公司      ############################################# -->
+	
+	<select id="checkStockNotification" resultType="int">
+		SELECT COUNT(0) FROM ACT_BOOK_ORDER BO
+		WHERE BO.STOCK_FLAG = 1 AND BO.STOCK_NOTIFICATION IS NULL
+		AND BO.BOOK_CODE IN
+       <foreach collection="array" open="(" separator="," close=")" item="item">
+           #{item}
+       </foreach>
+	</select>
+	
+	<select id="findCabinSubCount" resultType="int">
+	   SELECT COUNT(DISTINCT BI.MERGE_CUST_FLAG) FROM ACT_BOOK_ORDER_ITEM BI
+       WHERE BI.BOOK_CODE = #{bookCode}
+	</select>
+	
+	<!-- ======================================通过订舱编码查询订舱箱单信息============================================== -->
+	<select id="getTotalContainer" resultType="String">
+       SELECT TO_CHAR(WM_CONCAT(TO_CHAR(SUM(SC.CONDITION_RATE),'FM9999999990.00') || '*' || DECODE(SO.OBD_CODE, 'ZF00','20C', 'ZF02','40C', 'ZF04','40H', 'ZF30','45C')))
+       FROM SO_SALES_ORDER_CONDITION SC,
+            SYS_OBD                  SO
+       WHERE SC.CONDITION_CODE = SO.OBD_CODE
+            AND SO.CONDITION_TYPE = 'A'
+            AND SC.CONDITION_RATE > 0
+            AND SC.ORDER_CODE IN(
+                 SELECT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI
+                 WHERE BI.BOOK_CODE = #{bookCode}
+                 <if test="mergeCustFlag != null ">
+                 AND BI.MERGE_CUST_FLAG = #{mergeCustFlag}
+                 </if>
+            )
+       GROUP BY SO.OBD_CODE
+	</select>
+	
+	<select id="getContainerItem" resultType="map">
+	   SELECT SUM(H20) H20,SUM(H40) H40,SUM(NH40) NH40,SUM(H45) H45 FROM VI_ORDER_CNT_NUM OC
+	   WHERE OC.ORDER_CODE IN( 
+	             SELECT BI.ORDER_CODE FROM ACT_BOOK_ORDER_ITEM BI
+                 WHERE BI.BOOK_CODE = #{bookCode}
+                 <if test="mergeCustFlag != null ">
+                 AND BI.MERGE_CUST_FLAG = #{mergeCustFlag}
+                 </if>
+       )
+	</select>
+	<!-- ======================================通过订舱编码查询订舱箱单信息============================================== -->
+	
+	<select id="BookOrder.getBookOrderByBookOrder" resultMap="RM_BookOrderQuery">
+	   select * from act_book_order BI WHERE BI.BOOK_CODE = #{bookCode}
+	</select>
+	<select id="BookOrder.getISFOrder.count" resultType="long">
+		select count(*) from (<include refid="BookOrder.getISFOrder.sql"/>)
+	</select>
+	<select id="BookOrder.getISFOrder" resultType="map">
+		<include refid="pagination_Head"/>
+		<include refid="BookOrder.getISFOrder.sql"/>
+		<include refid="pagination_Tail"/>
+	</select>
+	<sql id="BookOrder.getISFOrder.sql">
+	   SELECT t.order_code ,
+       t.isf_flag,
+       to_char(t.isf_date,'yyyy-mm-dd') as isf_date,
+       (SELECT item_name_cn
+          FROM sys_lov
+         WHERE item_type = '3'
+           AND item_code = t.sale_area) big_center,
+       ct.dept_name_cn ,
+       city.NAME country_name,
+       cp.prod_type ,
+       t.order_po_code ,
+       (SELECT item_name_cn
+          FROM sys_lov
+         WHERE item_type = '1'
+           AND item_code = t.order_payment_method) pay_method,
+      to_char(ap.book_ship_date,'yyyy-mm-dd') as book_ship_date,
+       (SELECT NAME
+          FROM cd_customer c
+         WHERE c.customer_code = t.order_sold_to
+         <if test="@Ognl@isNotEmpty(soldToName)">
+			AND  c.customer_code LIKE '%${soldToName}%'
+		</if>
+         ) sold_to_name,
+       (SELECT NAME
+          FROM cd_customer
+         WHERE customer_code = t.order_ship_to) ship_to_name,
+       
+       ap.ship_upload_port ,
+       ap.ship_down_port ,
+       ap.vessel ,
+       ap.voyno ,
+       ap.ship_paper_code ,
+       ap.row_id ship_paper_id,
+       ap.book_code ,
+       ap.order_execremark ,
+       a.book_comments ,
+       t.order_deal_type ,
+       SUM(st.amount) original_money,
+       to_char(t.order_ship_date,'yyyy-mm-dd') as order_ship_date,
+       to_char(vt.book_actual,'yyyy-mm-dd') as book_actual,
+       (SELECT u.NAME
+          FROM user_info u
+         WHERE u.emp_code = t.order_cust_namager) jyt_name,
+       (SELECT u.NAME
+          FROM user_info u
+         WHERE u.emp_code = t.order_prod_manager) cp_name,
+       (SELECT u.NAME
+          FROM user_info u
+         WHERE u.emp_code = t.order_exec_manager) zx_name,
+       (SELECT u.NAME
+          FROM user_info u
+         WHERE u.emp_code = t.order_doc_manager
+         ) dz_name,
+       SUM(st.prod_quantity) quantity,
+       SUM(st.prod_quantity * cd.gross_weight) gross_weight,
+       SUM(st.prod_quantity * cd.net_weight) net_weight,
+       SUM(st.prod_quantity * cd.gross_value) volume,
+       ap.station ,
+       to_char(vt.declarationapply_actual,'yyyy-mm-dd') as declarationapply_actual,
+       to_char(ACTUAL_SHIP_DATE,'yyyy-mm-dd') as ACTUAL_SHIP_DATE,
+       to_char(vt.shipment_actual,'yyyy-mm-dd') as shipment_actual,
+       to_char(vt.getnegoinfofromhope_actual ,'yyyy-mm-dd') as getnegoinfofromhope_actual
+FROM so_sales_order t,
+       so_sales_order_item st,
+       ACT_SHIP_ORDER ASO,
+       act_ship_paper ap,
+       (SELECT DISTINCT order_code,
+                        ship_paper_row_id
+          FROM act_ship_paper_item) api,
+       cd_material cd,
+       (SELECT DISTINCT order_code,
+                        book_code
+          FROM act_book_order_item) ai,
+       cd_department ct,
+       cd_prod_type cp,
+       cd_country city,
+       vi_order_tmod vt,
+       act_book_order a,
+       cd_customer c
+ WHERE t.order_code = st.order_code
+   AND t.order_code = ai.order_code
+   AND ai.book_code = a.book_code
+   AND a.book_code = ap.book_code
+   AND T.ORDER_CODE = ASO.ORDER_NUM(+)
+   AND t.order_code = vt.order_code
+   AND t.country_code = city.country_code
+   AND t.order_code = api.order_code
+   AND api.ship_paper_row_id = ap.row_id
+   AND st.material_code = cd.material_code
+   AND t.dept_code = ct.dept_code(+)
+   AND st.prod_t_code = cp.prod_type_code
+   AND vt.book_actual IS NOT NULL
+   and c.customer_code = t.order_sold_to
+   and c.customer_code in ('6300','9760','6000000107','6000006841','6000006875')
+         <if test="@Ognl@isNotEmpty(soldToName)">
+			AND  c.customer_code LIKE '%${soldToName}%'
+		</if>
+   <if test="@Ognl@isNotEmpty(orderCode)">
+	AND  t.order_code like '%${orderCode}%'
+	</if>
+	<if test="@Ognl@isNotEmpty(isfFlag)">
+	AND  decode(t.isf_flag,null,0,t.isf_flag) = #{isfFlag}
+	</if>
+	<if test="@Ognl@isNotEmpty(isfDate)">
+	AND  to_char(t.isf_date, 'yyyy-mm-dd') = #{isfDate}
+	</if>
+	<if test="@Ognl@isNotEmpty(dzName)">
+	AND  t.order_doc_manager = #{dzName}
+	</if>
+	<if test="@Ognl@isNotEmpty(orderPoCode)">
+	AND  t.order_po_code LIKE '%${orderPoCode}%'
+	</if>
+	
+	<if test="@Ognl@isNotEmpty(startBookShipDate)">
+		<![CDATA[
+ 	    AND  to_date(to_char(ap.book_ship_date, 'yyyy-mm-dd'), 'yyyy-mm-dd') >= to_date(to_char(#{startBookShipDate}, 'yyyy-mm-dd'), 'yyyy-mm-dd') 
+ 	    ]]> 
+	</if>
+	<if test="@Ognl@isNotEmpty(endBookShipDate)">
+		<![CDATA[
+ 	    AND  to_date(to_char(ap.book_ship_date, 'yyyy-mm-dd'), 'yyyy-mm-dd') <= to_date(to_char(#{endBookShipDate}, 'yyyy-mm-dd'), 'yyyy-mm-dd')
+ 	    ]]> 
+	</if>
+   GROUP BY t.order_code,
+          t.isf_flag,
+          t.isf_date,
+          t.sale_area,
+          ct.dept_name_cn,
+          city.NAME,
+          cp.prod_type,
+          t.order_po_code,
+          t.order_payment_method,
+          ap.book_ship_date,
+          t.order_sold_to,
+          t.order_ship_to,
+          a.book_comments,
+          ap.ship_upload_port,
+          ap.ship_down_port,
+          ap.vessel,
+          ap.voyno,
+          ap.ship_paper_code,
+          ap.row_id,
+          ap.book_code,
+          ap.order_execremark,
+          t.order_deal_type,
+          t.order_ship_date,
+          vt.book_actual,
+          t.order_cust_namager,
+          t.order_prod_manager,
+          t.order_exec_manager,
+          t.order_doc_manager,
+          ap.station,
+          vt.declarationapply_actual,
+          ASO.ACTUAL_SHIP_DATE,
+          vt.shipment_actual,
+          vt.getnegoinfofromhope_actual
+ ORDER BY  t.isf_flag DESC,
+ 		   ap.book_ship_date 
+	</sql>
+	<update id="updateISFOrder">
+		update so_sales_order t set t.isf_flag=#{isfFlag},t.isf_date=to_date(#{isfDate},'yyyy-mm-dd') where t.order_code=#{orderCode}
+	</update>
+	<select id="BookOrder.comboxDzName" resultType="map">
+		SELECT u.emp_code,
+	       u.NAME
+	  	FROM user_info  u,
+	       user_group g
+		WHERE g.emp_code = u.emp_code
+	  		 AND g.group_id = '3'
+	   		 AND u.status = '1'
+	   		 AND u.emp_code NOT IN ('admin', '00593705', '01193297', '00981245')
+	  	ORDER BY NAME ASC
+	</select>
+	
+	
+	
+	<!-- 备件订单随整机装箱扫描发货    查询需要关联整机订舱的备件订单号    20200324  YXB-->
+	<select id="selectAttachOrder" resultType="String">
+	    SELECT DISTINCT S.ORDER_CODE
+		  FROM ACT_BOOK_ORDER_ITEM B
+		 INNER JOIN SO_SALES_ORDER S
+		    ON S.SP_ZOR = B.ORDER_CODE
+		   AND S.ORDER_AUDIT_FLAG != '2'
+		 WHERE B.BOOK_CODE = #{bookCode}
+	</select>
+	
+	
+	<!-- 测试测试 -->
+	<select id="BookOrder.selectOrderCode" resultMap="RM_BookOrder">
+		SELECT DISTINCT BO.ORDER_CODE AS BOOK_CODE,
+						B.VENDOR_CODE
+		  FROM ACT_BOOK_ORDER B
+		 INNER JOIN ACT_BOOK_ORDER_ITEM BO
+		    ON BO.BOOK_CODE = B.BOOK_CODE
+		 INNER JOIN AA_LIN_TEMP2 L
+		    ON L.CHAR1 = BO.ORDER_CODE
+	</select>
+	
+	
+	<select id="BookOrder.selectOrderExecManager" resultMap="RM_BookOrder">
+		SELECT DISTINCT S.ORDER_EXEC_MANAGER AS ORDER_MANAGER_CODE,
+		                U.NAME               AS ORDER_MANAGER_NAME,
+		                U.EMAIL              AS ORDER_MANAGER_EMAIL
+		  FROM SO_SALES_ORDER S
+		  LEFT JOIN USER_INFO U
+		    ON U.EMP_CODE = S.ORDER_EXEC_MANAGER
+		 WHERE S.ORDER_CODE IN
+		 <foreach collection="array" open="(" separator="," close=")" item="item">
+           	#{item}
+       	</foreach>
+	</select>
+	
+	<select id="BookOrder.selectOrderShipInfo" resultMap="RM_BookOrder">
+		SELECT B.BOOK_CODE,
+		       TO_CHAR(REPLACE(WM_CONCAT(DISTINCT S.ORDER_CODE), ',', '、')) AS UPDATE_ORDER_CODE,
+		       TO_CHAR(WM_CONCAT(DISTINCT
+		                         '(' || S.VENDOR_CODE || ')' || V1.VENDOR_NAME_CN)) AS ORDER_SHIP_COMPANY,
+		       TO_CHAR(WM_CONCAT(DISTINCT
+		                         '(' || B.VENDOR_CODE || ')' || V2.VENDOR_NAME_CN)) AS BOOK_SHIP_COMPANY
+		  FROM SO_SALES_ORDER S
+		 INNER JOIN ACT_BOOK_ORDER_ITEM BI
+		    ON BI.ORDER_CODE = S.ORDER_CODE
+		 INNER JOIN ACT_BOOK_ORDER B
+		    ON B.BOOK_CODE = BI.BOOK_CODE
+		  LEFT JOIN USER_INFO U
+		    ON U.EMP_CODE = S.ORDER_EXEC_MANAGER
+		  LEFT JOIN CD_VENDOR V1
+		    ON V1.VENDOR_CODE = S.VENDOR_CODE
+		   AND V1.VENDOR_TYPE = '0'
+		  LEFT JOIN CD_VENDOR V2
+		    ON V2.VENDOR_CODE = B.VENDOR_CODE
+		   AND V2.VENDOR_TYPE = '0'
+		 WHERE S.ORDER_EXEC_MANAGER = #{orderManager}
+		   AND S.ORDER_CODE IN 
+		   <foreach collection="orderCodes" open="(" separator="," close=")" item="item">
+           	#{item}
+       	   </foreach>
+		 GROUP BY B.BOOK_CODE
+	</select>
+	
+	
+</mapper>
+

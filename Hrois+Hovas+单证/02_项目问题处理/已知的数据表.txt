@@ -1,0 +1,423 @@
+数据库表（TH开头为泰国数据表）     
+------------------------------ ------------------------------------------------------------ 
+AA_LIN_TEMP                    			林晓东数据调整临时表---暂时不要删除---                                       
+AA_WANG_TEMP                   			数据调整临时表                                                      
+AA_WANG_TEMP2                  			数据调整临时表2                                                     
+ACT_AGENCY_BILL                			代理清单信息表                                                      
+ACT_AGENCY_BILL_DL             		大连代理清单信息表                                                    
+ACT_AGENTCY_BILL               			备件代理结算清单                                                     
+ACT_BACK_CONTAINER            	 	回箱单主表                                                        
+ACT_BACK_CONTAINER_ITEM        		回箱单明细表                                                       
+ACT_BILL_ORDER                 			提单信息表                                                        
+ACT_BOOK_ORDER                 			订舱信息                                                         
+ACT_BOOK_ORDER_CNT             		订舱箱量                                                         
+ACT_BOOK_ORDER_ITEM            		订舱明细表                                                        
+ACT_CASH_ORDER                 			收汇活动表                                                        
+ACT_CHECK_EXPORT_DOC           		商检出口备案，数据按产品大类分片－－备注字段不能用“comment”,2013.06.04修改成了REMARK      
+ACT_CHECK_EXPORT_PLAN          		出运计划                                                         
+ACT_CHECK_ORDER                		订单商检表ACT_CHECK_ORDER                                         
+ACT_CIF_PORT_ACTUAL            		CIF港杂费实际明细表                                                  
+ACT_CIF_PORT_BUDGET            		CIF港杂费预算明细表                                                  
+ACT_CNT                        				装箱活动表                                                        
+ACT_CNT_DEL                    			装箱活动表                                                        
+ACT_CNT_ITEM                   			装箱明细表                                                        
+ACT_CNT_ITEM_RETURN            		装箱明细Return表                                                  
+ACT_CNT_RETURN                 			装箱活动return表                                                  
+ACT_CONF_PAY_ORDER             		付款保障表                                                        
+ACT_CONF_PAY_ORDER_ITEM        		付款保障明细，从付款保障的行项目中，扩展出来N次付款的表。
+								并且本身也允许多行，用来支持同一次付款中，多种付款方式组合   
+ACT_CONF_RELEASE               		付款保障释放闸口申请表                                                  
+ACT_CUSTINVOICE_MAIN           		报关发票主表                                                       
+ACT_CUST_INVOICE               			报关发票表                                                        
+ACT_CUST_ORDER                 			报关活动表                                                        
+ACT_DECLARATION_CONTAINER      	报关单导出集装箱表                                                    
+ACT_DECLARATION_HEAD           		报关单导出结构主表                                                    
+ACT_DECLARATION_MATERIAL       	报关单导出物料明细表                                                   
+ACT_DECLARATION_ORDER          		报关单订单对照表                                                     
+ACT_DETECTION_ORDER            		首样质检表                                                        
+ACT_DOC_CUST_INVOICE_DETAIL    	报关发票表                                                        
+ACT_DOC_CUST_INVOICE_MAIN      	单证报关发票主表                                                     
+ACT_DOC_PACKING_DETAIL        		箱单表                                                          
+ACT_EVALUATE                   			评价表                                                          
+ACT_FIRST_SALE_INVOICE_DETAIL  	GE首销发票明细表                                                    
+ACT_FIRST_SALE_INVOICE_MAIN    	GE首销发票主表                                                     
+ACT_FOB_DEBIT_CONFIRM_LOG      	FOB港杂费确认日志                                                   
+ACT_FOB_DEBIT_NOTE             		FOB账单主表                                                      
+ACT_FOB_DEBIT_NOTE_ITEM1       		账单明细表                                                        
+ACT_FOB_DEBIT_NOTE_ORDER       	FOB账单对应订单关系表                                                 
+ACT_FOB_DEBIT_SPLIT            		FOB账单拆分预算   
+ACT_FOB_PORT_IMPORT           		FOB港杂费用户导入表                                       
+ACT_FOB_PORT_ACTUAL            		FOB港杂费实际明细表                                                  
+ACT_FOB_PORT_BUDGET            		FOB港杂费预算明细表                                                  
+ACT_FRONT_INVOICE_DETAIL      		前置发票明细表                                                      
+ACT_FRONT_INVOICE_MAIN         		前置发票/箱单主表                                                    
+ACT_FRONT_PACKING_DETAIL       		前置箱单明细表                                                      
+ACT_GEA_DOCUMENT_DETAIL        	GEA项目单证明细表                                                   
+ACT_GEA_DOCUMENT_MAIN          	GEA项目单证主表                                                    
+ACT_GEA_SHIPPING_NOTICE        		GEA项目出运通知单                                                   
+ACT_IMPORT_FEE                 			实际费用                                                         
+ACT_IMPORT_FREIGHT             		海运费实际导入                                                      
+ACT_IMPORT_OPTION              		海运费审核意见                                                      
+ACT_IMPORT_PORT                			实际港杂费                                                        
+ACT_IMPORT_PORT_ITEM           		实际港杂费明细                                                      
+ACT_KZ_GE_CHUYUN               		新单证中间表                                                       
+ACT_LMS_ACCOUNT                		物流平台账户权限                                                     
+ACT_MATERIAL_ACTUAL_DETECTION   物料实测信息表                                                      
+ACT_NEGO_ORDER                 			议付活动表                                                        
+ACT_ORDER_SPECIAL_CNT          		散件标准箱订单方案关联主表                                                
+ACT_ORDER_SPECIAL_ITEM         		散件标准箱订单方案关联明细表                                               
+ACT_ORDER_SPECIAL_PROD         		散件标准箱订单方案关联物料表                                               
+ACT_PACKING_LIST               			箱单表                                                          
+ACT_PACKING_LIST_TITLE         		箱单Title表                                                     
+ACT_PORT_BA_DETAIL             		港杂费预实对比                                                      
+ACT_PORT_BA_MAIN               		港杂费预实对比主表                                                    
+ACT_PORT_FEE_BILL_INFO         		提单综合信息表                                                      
+ACT_PORT_FEE_BUDGET            		港杂费预算表头，预算数据写到SEE_PORT_FEE_ITEM里面去了                          
+ACT_PREPARE_ORDER              		小备单生成表                                                       
+ACT_PREPARE_ORDER_ITEM         		备货单明细表                                                       
+ACT_PREPARE_ORDER_MUCH         	备货单中出现一条订单对应多条销售订单的数据明细                                             
+ACT_ROLLPLAN_RELEASE_LOG		滚动计划闸口释放日志                           
+ACT_SHIPMENT_RECORD            		出运计划备案表                                                      
+ACT_SHIP_ORDER                 			出运信活动表(订单与提单对应表)                                                       
+ACT_SHIP_PAPER                 			下货纸                                                          
+ACT_SHIP_PAPER_ITEM            		下货纸明细                                                        
+ACT_SPECIAL_BARCODE            		散件条码表                                     
+ACT_TAX_BACK_INFO             			退税信息表                                                        
+BCC_FREIGHT_UPDATE             		修改运费                                                         
+BM_TENDER                      			招标信息管理表                                                      
+BOOK_INTTRA_BACK               		订舱接口回传数据                                                     
+CANGWEI_DUIBI                  			舱位预算——对比                                                     
+CANGWEI_SHIJI                  			实际舱位                                                         
+CANGWEI_YUSUAN                 		舱位预算                                                         
+CANGWEI_YUSUAN_TONGJI          		舱位预算统计表                                                      
+CD_ACT_SET                     			T模式节点信息表                                                     
+CD_BID_TYPE                    			中标项目配置                                                       
+CD_BID_TYPE_MERGE              		合并费用科目表                                                      
+CD_COUNTRY                     			国家                                                           
+CD_CUSTOMER                    			客户表。客户类型根据客户编码区分，四位编码的是贸易公司，10位编码的是直发客户                      
+CD_CUSTOMER_EXTENDS            		客户赊销额度，客户基本资料的从表                                             
+CD_CUSTOM_RECORD_SET           		备案信息维护                                                       
+CD_CUST_OLD                    			老系统报关行表（100.82迁移使用）                                          
+CD_DATE_WEEK_YEAR              		海尔日历信息表-20141105创建                                           
+CD_DB_LINK                     			接口数据源配置表                                                     
+CD_DECLARATION_CUSTOMER        	报关单客户对照关系表                                                   
+CD_DEPARTMENT                  			组织类型（0,工厂、1,经营体、2,权限部门）                                      
+CD_DOC_CUST_INFO               		单证票据预设信息维护                                                   
+CD_EMPLOYEE_TO_DEPT           		员工部门对应表                                                      
+CD_EMPLOYEE_TO_PRODUCTTYPE     	员工对应产品组表                                                     
+CD_EVALUATE_SET                			权限组评价配置                                                      
+CD_EXCHANGE_RATE               		汇率表                                                          
+CD_EXPENSE                     			费用科目信息（港杂费、海运费、铁路费、空运费科目）                                                       
+CD_FOREIGN_EXCHANGE_BUDGET     	出口创汇预算导入表                                                    
+CD_FOREIGN_EXCHANGE_DAY        	出口创汇日表                                                       
+CD_FOREIGN_EXCHANGE_DEP        	出口创汇预算导入配置表                                                  
+CD_GSIS_CONDITION_SET          		备件订单CONDITION配置表                                             
+CD_GUARANTEES                  			保函维护      	                                                   
+CD_GUARANTEES_X                		保函维护                                                         
+CD_MATERIAL                    			物料主数据                                                        
+CD_MATERIAL_COMPLETE           		套机物料表                                                        
+CD_MATERIAL_OFF                			物料下市型号表                                                      
+CD_MATERIAL_SPARE_PARTS        		散件备案信息                                                       
+CD_MDM_MARKET_MICRO            		MDM小微数据                                                      
+CD_MONEY_FORWARD_RATE          	远期汇率表  create time 20141015                                  
+CD_MONEY_RATE                  			即期汇率表                                                        
+CD_MONEY_RATE_NEW              		即期汇率维护表                                                      
+CD_MQM_DEPT                    			SIGMA系统部门信息表                                                 
+CD_NEW_FOREIGN_EXCHANGE        	出口创汇新日表(金额单位:美元)                                             
+CD_ORDER_AUDIT_SET             		订单评审配置                                                       
+CD_ORG                         				组织信息                                                         
+CD_PAYMENT_EXTENDS             		付款条件                                                         
+CD_PAYMENT_TERMS               		付款条件                                                         
+CD_PORT                        				港口信息                                                         
+CD_PORT_GROUP                  			港口分组对照表                                                      
+CD_PORT_PERSON                 			物流经理与港口分组对照表                                                 
+CD_PROD_TYPE                   			产品大类                                                         
+CD_RECORD_MATERIAL             		备案物料表                                                        
+CD_SALE_ORG                    			销售组织                                                         
+CD_SMALL_MICRO                 			小微信息表(小微与销售大区对应关系)                                           
+CD_SPECIAL_CNT                 			标准箱方案主表                                                      
+CD_SPECIAL_CNT_ITEM            		标准箱明细表                                                       
+CD_TECH_ORDER                  			特技单表                                                         
+CD_TECH_ORDER_CONFIG           		特技单配置表CONFIG                                                 
+CD_TECH_ORDER_ITEM             		特技单明细                                                        
+CD_TECH_ORDER_OPTIONS          		选择项目表                                                        
+CD_TECH_ORDER_VERDICT          		特技单结论履历表                                                     
+CD_TMOD_CONFIG                 			T模式配置                                                        
+CD_TMOD_SET                    			T模式配置表                                                       
+CD_VENDOR                      			供应商或船公司信息0=船公司，1=报关行，2=商检代理商                                 
+CD_WASHER_REPORT_ORDER_BY      	洗衣机创汇报表汇总排序配置表                                               
+CD_WATER_BILL                  			水单维护                                                         
+CD_WATER_BILL_HOPE             		水单表(hope系统获取)                                                
+CM_CONTRACT                    			合同主表                                                         
+CM_CONTRACT_CONDITION          		合同条件表                                                        
+CM_CONTRACT_ITEM               		合同明细表                                                        
+COMMERCIAL_INVOICE             		商业发票表                                                        
+CONTAINERNUMBER_DATA           		箱子详情信息                                                       
+EDI_CONTAINERNUMBER            		有更新的箱子                                                       
+EDI_INFO                       				Intra回传订舱信息                                                  
+ET_PROD_PRICE                  			备件产品定价单                                                      
+EXPORT_INVOICE                 			出口商品专用发票——主表                                                 
+EXPORT_INVOICE_DETAIL          		出口商品专用发票——明细表                                                
+EXP_BID                        				中标信息主表                                                       
+EXP_BID_DETAIL                 			中标信息明细表，海运、空运等等共用同一个明细                                       
+FEE_FILE                       				费用审核上传的文件                                                    
+GE_INVOICE_MAIN                			GE发票（箱单）主表                                                   
+HSP_INTERFACE_LOG              		HSP预收转应收抛帐接口日志                                               
+IF_BCC_FEE                    		 		BCC费用接口表                                                     
+IF_NO_CUSE_HOPE                			回款信息(HOPE获取)                                                 
+KD_ORDER                       				快递单                                                          
+LC_APPENDIX                    			信用证附件卡表                                                      
+LC_LETTERCREDIT                			信用证                                                          
+LC_LETTERCREDIT_HISTORY        		信用证改证记录                                                      
+LOG_PORT_FEE_CHECK             		港杂费预实对比主表                                                    
+LOG_SCHEDULES                  			定时任务日志表LOG_SCHEDULES                                         
+MARK_TAX_BACK                  			哪些订单需要生成代理结算清单                                               
+MATERIAL_DESCRIBE_WM           		物料描述表 包括货描、物料描述                                              
+MESSAGE                        				站内信，系统公告表                                                    
+MESSAGE_SEND_STATE             		站内信，系统 发送状态表                                                 
+OE_APPRAISE_ITEM               			订单修改申请单审批表                                                   
+OE_ORDER_BACK_CONF             		订单修改后重做节点配置表
+								订单修改申请单评审通过后，需要根据订单所处的T模式状态决定订单需要重做的工作流节点       
+OE_ORDER_BACK_CONF_ITEM        	订单修改后重做节点配置表明细                                               
+OE_ORDER_EDIT                  			订单修改申请单                                                      
+OE_ORDER_EDIT_NODE             		订单修改申请单修改节点明细  
+OE_TYPE_BACK_NODE_CONF         	修改类别与重做节点配置，一对多。一个类别可能影响到好多个节点                               
+OE_TYPE_CONF                   			订单修改类别－－基础数据                                                 
+OE_TYPE_REFER_TABLE            		修改涉及到的表                                                      
+OE_TYPE_ROLE_ITEM              		修改类别审核人对应明细表                                                 
+REPORT_MONEY_INVOKE_NEW        	收汇报表--新  Linxd                                               
+ROLLPLAN_BIDUI                 			滚动计划比对表                                                      
+RP_INPUT                       				滚动计划导入表,十三周的滚动计划表                                            
+RP_OUTPUT                      			滚动计划导出表,十三周的滚动计划表                                            
+RP_OUTPUT_0930                 			国庆滚动计划备份-17:12 
+SEE_FEE                               			预实对比数据
+SEE_FEE_JOB                    			执行预实对比数据生成存储过程作业的临时表                                         
+SI_AR_OVERDUE                  			AR逾期接口参考原接口if_customer_yq                                   
+SI_AR_OVERDUE_HOPE             		从hope获取的逾期信息                                                 
+SI_AR_OVERDUE_TEST             		AR逾期接口 参考原接口if_customer_yq                                   
+SI_BCC_PAYINFO                 			BCC订单费用申请信息                                                  
+SI_EXP_BUDGET_BCC              		费用预算系统接口（各种费用传BCC数据表）                                                     
+SI_EXP_BUDGET_BCC_TEMP         		费用预算系统接口（临时）                                                 
+SI_GVS_SALES_BJ                			备件订单传HGVS凭证接口                              f                  
+SI_HGVS_MANU_ORDER             		HGVS生产订单接口                                                   
+SI_HGVS_ORDER_CREATE          		HGVS创建销售订单表                                                  
+SI_HGVS_ORDER_PLAN             		传GVS的销售计划接口                                                  
+SI_HGVS_ORDER_TAX              		HGVS增值税发票号接口表                                                
+SI_HGVS_PO_TRACK               			HGVS跟踪备货接口                                                   
+SI_HOPE_CONTRACT               		HOPE合同接口                                                     
+SI_HOPE_CONTRACT_ITEM          		HOPE合同明细接口                                                   
+SI_HOPE_ORDER_CONDITION        		HOPE订单明细条件记录表                                                
+SI_HOPE_ORDER_HEAD             		HOPE订单主表接口                                                   
+SI_HOPE_ORDER_ITEM             		HOPE订单明细接口                                                   
+SI_IDM_USER                    			IDM用户信息接口表                                                   
+SI_INTERFACE_CONF              			接口配置表                                                        
+SI_MDM_MATERIAL                			物料主数据                                                        
+SI_OES_ROLLPLAN                			OES滚动计划评审接口（最终）                                              
+SI_PORT_UPDATE_LOG             		订舱目的港修改记录                                                    
+SI_QU_QTR                      				一般质量问题闸口
+SI_HGVS_MONEY_CHANGE			参考VI_QTR_INTERFACE                                  
+SI_QU_QUALITY_ACCIDENT         			                         
+SI_SHIPPING_UPDATE_LOG         		订舱船公司修改记录                                                    
+SI_SPI_QUALITY                 			SPI 售后质量信息                                                                          
+SO_ACT                         				订单T模式活动记录表                                                   
+SO_ACT_TEMP20140924            		记录备案（备件的4笔订单的T模式出现问题但全景图没有问题，此表为调整前的数据）                      
+SO_AUDIT_DETAIL                			订单评审明细表                                                      
+SO_AUDIT_MAIN                  			订单评审主表                                                       
+SO_BILLS                       				账单导入主表                                                       
+SO_INTERFACE_LOG               			订单与HOPE接口标识记录表                                               
+SO_ORDER_INTERFACE_LOG         		订单与HOPE接口标识记录表                                               
+SO_ORDER_MERGE                 			空调内外机合并                                                      
+SO_SALES_ORDER                 			订单信息表                       	[这三张表是生成订单时自动生成的]
+SO_SALES_ORDER_ITEM            		订单物料明细表		[调用的sap的接口]                             
+SO_SALES_ORDER_CONDITION       	订单物料的条件记录		[代码FetchOrderFromHopeJob的startJob方法]                                                
+SO_SALES_ORDER_FRZ             		订单信息表                                                        
+SO_SALES_ORDER_PACKAGE         		备件订单包装信息导入表                                                  
+SO_SALES_ORDER_PARTS           		SO_散件专用号                                                     
+SYS_CODEHISTORY                			取番流水表                                                        
+SYS_CODEQUEUE                  			单据编码,制定各种单据的编码规则                                             
+SYS_INTERFACECONFIG           		外围接口配置表                                                      
+SYS_LOV                        				系统字典()                                                         
+SYS_OBD                        				OBD定价结构                                                      
+SYS_TABLE_SEQENCES             		系统表序列控制表                                                     
+TECH_ORDER                     			特技单表                                                         
+TECH_ORDER_OLD                 			老特技单                                                                                                    
+TENDER_YEAR                    			年度招标需求
+TO_HOPE_SALES_ORDER            		直发客户录单主表                                                     
+TO_HOPE_SALES_ORDER_ITEM       	直发客户录单明细信息表                                                  
+T_IDM_USER                     			IDM 用户接口表                                                    
+UNIEAP_REPORT_SEMANTIC_CATE    	业务集分类表，描述业务集分类的基本信息。                                         
+UNIEAP_REPORT_SEMANTIC_SET     	描述业务集基本信息                                                    
+UNIEAP_REPORT_SEMANTIC_SETCATE  业务集分类关联                                                      
+UNIEAP_REPORT_SEMANTIC_SETSPEC 业务集详细描述信息                                                    
+UREPORT_FILE                   			ureport2存储表                                                  
+USER_DATA_CONFIG               		数据分片配置表                                                      
+USER_GRANTOR                   			权限托管记录                                                       
+USER_TEMP                      			用户权限原始表                                                      
+WF_PROCINSTANCE                		表单在工作流中的状态  
+———————————————————————————————————————————————————————————————————————————泰国信息表——————————————————————————
+—————————————————————————————————————————————————————
+                                            
+OE_TH_APPRAISE_ITEM            		泰国订单修改申请单审批表                                                 
+OE_TH_ORDER_EDIT               			泰国订单修改申请单                                                      
+OE_TH_ORDER_EDIT_ITEM          		泰国订单修改申请单明细 
+SI_TH_AR_OVERDUE               			泰国AR逾期接口                                                     
+SI_TH_ROLLPLAN_TO_GVS          		泰国滚动计划导入GVS  
+TH_ACT_BACK_CONTAINER          		泰国回箱单主表                                                        
+TH_ACT_BACK_CONTAINER_ITEM     	泰国回箱单明细表                                                       
+TH_ACT_BILL_ORDER              		泰国提单/发货单信息表                                                  
+TH_ACT_BOOK_ORDER             		泰国订舱信息表                                                      
+TH_ACT_BOOK_ORDER_CNT          		泰国订舱箱量表                                                      
+TH_ACT_BOOK_ORDER_ITEM         		泰国订舱明细表                                                      
+TH_ACT_CASH_ORDER              		泰国收汇活动表                                                      
+TH_ACT_CNT                     			泰国装箱活动表                                                        
+TH_ACT_CNT_ITEM                			泰国装箱明细表                                                        
+TH_ACT_CONF_PAY_ORDER          		泰国付款保障表                                                      
+TH_ACT_CONF_PAY_ORDER_ITEM     	泰国付款保障明细，从付款保障的行项目中，扩展出来N次付款的表。
+								并且本身也允许多行，用来支持同一次付款中，多种付款方式组合 
+TH_ACT_CONF_RELEASE            		泰国付款保障释放闸口历史表                                                
+TH_ACT_CUSTINVOICE_MAIN        		泰国报关发票主表                                                     
+TH_ACT_CUST_INVOICE            		泰国报关发票表                                                      
+TH_ACT_CUST_ORDER              		泰国报关活动表                                                      
+TH_ACT_DETECTION_ORDER         		泰国质检表                                                        
+TH_ACT_DOC_CUST_INVOICE_DETAIL 	泰国报关发票表                                                        
+TH_ACT_DOC_CUST_INVOICE_MAIN   	泰国箱单表                                                          
+TH_ACT_DOC_PACKING_DETAIL      	泰国箱单表                                                          
+TH_ACT_HI_COMMENT              		泰国订单管理的审批信息                                                    
+TH_ACT_NEGO_ORDER              		泰国议付活动表                                                      
+TH_ACT_ORDER_SPECIAL_CNT       	泰国散件标准箱订单方案关联主表                                              
+TH_ACT_ORDER_SPECIAL_ITEM      	泰国散件标准箱订单方案关联明细表                                             
+TH_ACT_ORDER_SPECIAL_PROD      	泰国散件标准箱订单方案关联物料表                                             
+TH_ACT_PACKING_LIST            		泰国箱单表                                                        
+TH_ACT_PREPARE_ORDER           		泰国小备单生成表                                                       
+TH_ACT_PREPARE_ORDER_ITEM      	泰国备货单明细表                                                       
+TH_ACT_ROLLPLAN_RELEASE_LOG    	泰国滚动计划闸口释放日志                                                   
+TH_ACT_SEND_DOC                		泰国议付寄单未寄单                                                      
+TH_ACT_SHIP_ORDER              		泰国订单出运表（出运信息活动表）                                             
+TH_ACT_SHIP_PAPER              			泰国下货纸表                                                       
+TH_ACT_SHIP_PAPER_BAK          		泰国下货纸备份表                                                     
+TH_ACT_SHIP_PAPER_ITEM         		泰国下货纸明细                                                      
+TH_ACT_SHIP_PAPER_ITEM_BAK     	泰国下货纸备份表                                                       
+TH_ACT_SPECIAL_BARCODE         		泰国散件条码表                                                      
+TH_AUDIT_CONFIG_MAIN           		泰国特殊条件配置                                                       
+TH_BID_INFO                    			泰国中标信息表                                                        
+TH_BID_INFO_DETAIL             			泰国中标信息明细表                                                    
+TH_BID_ORDER_FEE               			泰国费用预算系统接口                                                     
+TH_BID_TYPE_CONFIG             		泰国中标信息配置表                                                    
+TH_CD_CNT_BARCODE              		装箱预编扫描条码                                                     
+TH_CD_ORDER_AUDIT_SET          		泰国订单评审配置                                                       
+TH_CD_TMOD_CONFIG              		泰国T模式配置                                                        
+TH_CONTRACT                    			泰国版-合同管理表                                                    
+TH_CONTRACT_ITEM               		泰国合同明细表                                                        
+TH_COUNTRY_SALESAREA_CONTRAST泰国国家与销售大区对照表                                                   
+TH_COUNTRY_SALESMANAGER        	泰国国家与销售经理对照表                                                   
+TH_CUSTOMER                    			泰国客户主数据                                                      
+TH_CUSTOMER_EXTENDS            		泰国客户赊销额度表                                                      
+TH_DOC_CUST_INFO               		泰国单证票据预设信息维护                                                 
+TH_EMAIL                       				泰国系统邮件提示                                                       
+TH_EMAIL_DETAIL                			泰国邮件发送明细数据                                                     
+TH_EXCHANGE_EARNINGS_COMPLETE泰国收汇(回款)完成记录表                                                  
+TH_EXCHANGE_EARNINGS_SAP       	泰国收汇表(存放从SAP取回的收汇信息)                                         
+TH_GUARANTEES                  			泰国保函管理                                                       
+TH_GUARANTEES_VERSION          		泰国保函历史管理                                                     
+TH_INVOICE                     			泰国内销发货单                                                      
+TH_KD_ACCOUNT_INFO             		泰国快递叫件中标账号信息表                                                
+TH_KD_AREA                     			泰国快递叫件区域信息表                                                    
+TH_KD_BID_INFO                 			泰国快递叫件中标信息表                                                  
+TH_KD_COMPANY                  			泰国快递叫件快递公司信息表                                                
+TH_KD_COUNTRY                  			泰国快递国家表                                                        
+TH_KD_DEPARTMENT               		泰国快递叫件所属部门表                                                  
+TH_KD_EXP_DEPARTMENT           		泰国快递叫件费用承担部门表                                                
+TH_KD_ORDER                    			泰国快递叫件录入表                                                    
+TH_LC_APPENDIX                 			泰国信用证附件卡表                                                    
+TH_LC_BANK                     			泰国开证行信息                                                        
+TH_LC_BANK_EXTENDS             		泰国开证行客户信息维护                                                  
+TH_LC_CHANGE_LOG               		泰国信用证历史记录                                                    
+TH_LC_LETTERCREDIT             		泰国信用证                                                        
+TH_LC_TPRODUCT                 			泰国信用证关联订单表                                                     
+TH_LOG_PAY_CONF_INFO           		泰国订单与HOPE接口标识记录表                                               
+TH_LOG_SCHEDULES               		泰国定时任务日志表th_LOG_SCHEDULES                                      
+TH_MATERIAL                   		 	泰国物料主数据                                                      
+TH_MATERIAL_001                			泰国物料主数据                                                      
+TH_MATERIAL_COMPLETE           		泰国套机物料表                                                        
+TH_MATERIAL_FORECAST           		泰国物料预测                                                       
+TH_MATERIAL_SPAREPART          		泰国备件物料数据                                                       
+TH_MATERIAL_SPAREPART_PRICE    	备件物料价格数据                                                     
+TH_MONEY_RATE                  			泰国汇率表                                                        
+TH_MONEY_RATE_LOG              		泰国汇率表                                                        
+TH_NEGO_INFO_FROM_SAP          		泰国从SAP获取的议付状态信息表                                             
+TH_PAYMENT_TERMS              	 	泰国付款条件                                                         
+TH_PI                          				泰国PI信息录入表                                                      
+TH_PI_IMAGE                    			泰国PI打印印章表                                                      
+TH_PI_ITEM                     				泰国PI下物料信息                                                      
+TH_PORT                        				泰国港口信息                                                       
+TH_PORT_COMPARE_HGMS           		泰国HROIS与HGMS的港口对照                                              
+TH_PRICE                       				泰国价格管理                                                         
+TH_PRICE_MAIN                  			泰国价格主表                                                       
+TH_PROD_TYPE                   			泰国产品大类                                                         
+TH_PROD_TYPE_COMPARE_HGMS      	泰国HROIS与HGMS产品大类对照                                             
+TH_PUT_SHIP_FEE_TO_HGVS        		泰国发货过账接口返回数据表                                                  
+TH_RP_INPUT                    			泰国物料预测                                                       
+TH_RP_INPUT_0118               			泰国16年1月18号删除的滚动计划数据                                            
+TH_RP_MONTH_N                  			泰国滚动计划T周时间                                                   
+TH_RP_OUTPUT                   			泰国滚动计划导入                                                     
+TH_RP_OUTPUT_0118              		泰国16年1月18号删除的滚动计划数据                                            
+TH_RP_SAP_INPUT                			泰国SAP confirm sa                                               
+TH_SALE_ORG                    			销售组织                                                         
+TH_SAP_ORDER_TYPE              		泰国HROIS与SAP订单类型对照表                                             
+TH_SI_HGVS_ORDER_CREATE        		泰国HGVS创建销售订单表                                                  
+TH_SI_HGVS_PO_TRACK            		泰国HGVS跟踪备货接口                                                   
+TH_SOP_FREIGHT_INSURANCE       	泰国备件订单运费和保费维护表(在订舱申请页面维护)                                      
+TH_SO_ACT                      			泰国订单T模式活动记录表                                                 
+TH_SO_AUDIT_DETAIL             		泰国订单评审明细表                                                      
+TH_SO_AUDIT_MAIN               			泰国订单评审主表                                                       
+TH_SO_INTERFACE_LOG            		泰国订单与HOPE接口标识记录表                                               
+TH_SO_ORDER_MERGE              		泰国空调内外机合并表                                                   
+TH_SO_SALES_ORDER              		泰国订单信息表                                                        
+TH_SO_SALES_ORDER_CONDITION    	泰国订单物料的条件记录                                                    
+TH_SO_SALES_ORDER_ITEM         		泰国订单物料明细表                                                      
+TH_SO_SALES_ORDER_PACKAGE      	泰国备件订单包装信息导入表                                                  
+TH_SO_SCHEDULED_DATE_LOG       	泰国SO排产日期修改记录                                                 
+TH_SPECIAL_CNT                 			泰国标准箱方案主表                                                    
+TH_SPECIAL_CNT_ITEM            		泰国标准箱明细表                                                     
+TH_SPECIAL_CNT_PROD            		泰国标准箱配载表                                                     
+TH_STAG_SO_SALES_ORDER         		泰国备件订单                                                       
+TH_STAG_SO_SALES_ORDER_ITEMLOG 泰国订单明细日志表                                                    
+TH_STAG_SO_SALES_ORDER_LOG     	泰国备件订单                                                       
+TH_SYS_LOV                     			泰国系统字典                                                         
+TH_SYS_OBD                     			泰国OBD定价结构                                                    
+TH_TECH_ORDER_AC               		泰国特技单-空调                                                       
+TH_TECH_ORDER_FZRF             		泰国特技单-冷柜冰箱                                                     
+TH_TECH_ORDER_WM               		泰国特技单-洗衣机                                                      
+TH_TO_HOPE_SALES_ORDER         		泰国直发客户录单主表                                                     
+TH_TO_HOPE_SALES_ORDER_ITEM    	泰国直发客户录单明细信息表                                                  
+TH_VENDOR                      			泰国供应商或船公司信息0=船公司,1=空运,2,陆运，3=报关行,4=货代                          
+TH_WATER_BILL                  			泰国水单维护                                                       
+TH_WATER_BILL_LOG              		泰国水单维护日志                                                     
+                                                 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+ 
+
+
+ 
+ 

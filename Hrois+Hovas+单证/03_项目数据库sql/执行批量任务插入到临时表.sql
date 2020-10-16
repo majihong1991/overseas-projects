@@ -1,0 +1,6 @@
+
+
+
+select distinct ORDER_CODE from SEE_FEE where BILL_NUM in ('COAU7224416850',
+'COAU7224534300',
+'COAU7224416890');

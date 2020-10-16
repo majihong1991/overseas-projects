@@ -1,0 +1,10 @@
+-------------------------------------物料延时问题-----------------------------------------
+--验证物料是否延时
+select a.hr_limited  from CD_MATERIAL a where a.material_code in (
+'B30FMEE56','B300GQE56'
+)
+--查看物料是否锁定
+select * from CD_MATERIAL_OFF c where c.material_code in (
+'B30FMEE56','B300GQE56'
+) for update;
+-------------------------------------------------------------------------------------------

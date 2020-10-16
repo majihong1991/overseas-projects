@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="ActCntItem">
+ 
+	<resultMap id="RM_ActCntItem" type="com.haier.hrois.order.cnt.domain.ActCntItem">
+         <id column="ACT_CNT_ITEM_CODE" property="actCntItemCode" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <result property="actCntCode" column="ACT_CNT_CODE"   />
+        <result property="orderNum" column="ORDER_NUM"   />
+        <result property="orderItemCode" column="ORDER_ITEM_CODE"   />
+        <result property="materialSetCode" column="MATERIAL_SET_CODE"   />
+        <result property="materialPartsCode" column="MATERIAL_PARTS_CODE"   />
+        <result property="splitFlag" column="SPLIT_FLAG"   />
+        <result property="budgetQuantity" column="BUDGET_QUANTITY"   />
+        <result property="materialPackage" column="MATERIAL_PACKAGE"   />
+        <result property="grossWeight" column="GROSS_WEIGHT"   />
+        <result property="volume" column="VOLUME"   />
+        <result property="scanQuantity" column="SCAN_QUANTITY"   />
+        <result property="scanFinishFlag" column="SCAN_FINISH_FLAG"   />
+        <result property="activeFlag" column="ACTIVE_FLAG"   />
+        <result property="createdBy" column="CREATED_BY"   />
+        <result property="created" column="CREATED"   />
+        <result property="lastUpdBy" column="LAST_UPD_BY"   />
+        <result property="lastUpd" column="LAST_UPD"   />
+        <result property="modificationNum" column="MODIFICATION_NUM"   />
+        <result property="containerType" column="CONTAINER_TYPE"   />
+        <result property="containerQuantity" column="CONTAINER_QUANTITY"   />
+        <result property="orderItemId" column="ORDER_ITEM_ID"   />
+        <result property="haierModel" column="HAIER_MODEL"   />
+        <result property="customerModel" column="CUSTOMER_MODEL"   />
+        <result property="affirmNum" column="AFFIRM_NUM"   />
+        <result property="customerBoxCode" column="CUSTOMER_BOX_CODE"/>
+        <result property="attachOrder" column="ATTACH_ORDER"/>
+        <result property="loadingBoxCode" column="LOADING_BOX_CODE"/>
+        <result property="inBound" column="IN_BOUND"/>
+	</resultMap>
+	<resultMap id="RM_ActCntItemQuery" type="com.haier.hrois.order.cnt.query.ActCntItemQuery">
+         <id column="ACT_CNT_ITEM_CODE" property="actCntItemCode" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <result property="actCntCode" column="ACT_CNT_CODE"   />
+        <result property="orderNum" column="ORDER_NUM"   />
+        <result property="orderItemCode" column="ORDER_ITEM_CODE"   />
+        <result property="materialSetCode" column="MATERIAL_SET_CODE"   />
+        <result property="materialPartsCode" column="MATERIAL_PARTS_CODE"   />
+        <result property="splitFlag" column="SPLIT_FLAG"   />
+        <result property="budgetQuantity" column="BUDGET_QUANTITY"   />
+        <result property="materialPackage" column="MATERIAL_PACKAGE"   />
+        <result property="grossWeight" column="GROSS_WEIGHT"   />
+        <result property="volume" column="VOLUME"   />
+        <result property="scanQuantity" column="SCAN_QUANTITY"   />
+        <result property="scanFinishFlag" column="SCAN_FINISH_FLAG"   />
+        <result property="activeFlag" column="ACTIVE_FLAG"   />
+        <result property="createdBy" column="CREATED_BY"   />
+        <result property="created" column="CREATED"   />
+        <result property="lastUpdBy" column="LAST_UPD_BY"   />
+        <result property="lastUpd" column="LAST_UPD"   />
+        <result property="modificationNum" column="MODIFICATION_NUM"   />
+        <result property="containerType" column="CONTAINER_TYPE"   />
+        <result property="containerQuantity" column="CONTAINER_QUANTITY"   />
+        <result property="orderItemId" column="ORDER_ITEM_ID"   />
+        <result property="haierModel" column="HAIER_MODEL"   />
+        <result property="customerModel" column="CUSTOMER_MODEL"   />
+        <result property="affirmNum" column="AFFIRM_NUM"   />
+        <result property="factoryName" column="FACTORY_NAME"/>
+        <result property="serverName" column="SERVER_NAME"/>
+        <result property="statusCode" column="statusCode"/>
+        <result property="packageType" column="packageType"/>
+        <result property="customerBoxCode" column="CUSTOMER_BOX_CODE"/>
+        <result property="attachOrder" column="ATTACH_ORDER"/>
+        <result property="inBound" column="IN_BOUND"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="ActCntItem.columns">
+	    <![CDATA[
+		ACT_CNT_ITEM_CODE,ACT_CNT_CODE,ORDER_NUM,ORDER_ITEM_CODE,MATERIAL_SET_CODE,MATERIAL_PARTS_CODE,SPLIT_FLAG,BUDGET_QUANTITY,MATERIAL_PACKAGE,GROSS_WEIGHT,VOLUME,SCAN_QUANTITY,SCAN_FINISH_FLAG,ACTIVE_FLAG,CREATED_BY,CREATED,LAST_UPD_BY,LAST_UPD,MODIFICATION_NUM,CONTAINER_TYPE,CONTAINER_QUANTITY,ORDER_ITEM_ID,HAIER_MODEL,CUSTOMER_MODEL,AFFIRM_NUM
+	    ]]>
+	</sql>
+	
+			<sql id="pagination_Head" >
+		<![CDATA[select * from ( select row_.*, rownum rownum_ from ( ]]>
+	</sql>
+	 <!-- oracle 分页尾 -->
+	<sql id="pagination_Tail">
+	  <![CDATA[) row_ where rownum <=  #{pager.pageSize}*#{pager.currentPage} ) where rownum_ > #{pager.firstResult}]]>
+	</sql>
+
+	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+	<insert id="ActCntItem.insert" useGeneratedKeys="true" keyProperty="actCntItemCode">
+    <![CDATA[
+        INSERT INTO ACT_CNT_ITEM (
+         ACT_CNT_ITEM_CODE, ACT_CNT_CODE, loading_box_code,ORDER_NUM, ORDER_ITEM_CODE, MATERIAL_SET_CODE, MATERIAL_PARTS_CODE, SPLIT_FLAG, BUDGET_QUANTITY, MATERIAL_PACKAGE, GROSS_WEIGHT, VOLUME, SCAN_QUANTITY, SCAN_FINISH_FLAG, ACTIVE_FLAG, CREATED_BY, CREATED, LAST_UPD_BY, LAST_UPD, MODIFICATION_NUM, CONTAINER_TYPE, CONTAINER_QUANTITY, ORDER_ITEM_ID, HAIER_MODEL, CUSTOMER_MODEL, AFFIRM_NUM, ATTACH_ORDER
+        ) VALUES (
+         #{actCntItemCode}, #{actCntCode},#{loadingBoxCode}, #{orderNum}, #{orderItemCode}, #{materialSetCode}, #{materialPartsCode}, #{splitFlag}, #{budgetQuantity}, #{materialPackage}, #{grossWeight}, #{volume}, #{scanQuantity}, #{scanFinishFlag}, #{activeFlag}, #{createdBy}, #{created}, #{lastUpdBy}, #{lastUpd}, #{modificationNum}, #{containerType}, #{containerQuantity}, #{orderItemId}, #{haierModel}, #{customerModel}, #{affirmNum}, #{attachOrder}        
+        )
+    ]]>
+		<!-- 
+		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="userId">
+			SELECT sequenceName.nextval AS ID FROM DUAL 
+        </selectKey>
+		 -->
+	</insert>
+	
+	<insert id="ActCntItem.addCntItem" useGeneratedKeys="true" keyProperty="actCntItemCode">
+    <![CDATA[
+        INSERT INTO ACT_CNT_ITEM (
+         ACT_CNT_ITEM_CODE, ACT_CNT_CODE, ORDER_NUM, ORDER_ITEM_CODE, MATERIAL_SET_CODE, MATERIAL_PARTS_CODE, SPLIT_FLAG, BUDGET_QUANTITY, MATERIAL_PACKAGE, GROSS_WEIGHT, VOLUME, SCAN_QUANTITY, SCAN_FINISH_FLAG, ACTIVE_FLAG, CREATED_BY, CREATED, LAST_UPD_BY, LAST_UPD, MODIFICATION_NUM, CONTAINER_TYPE, CONTAINER_QUANTITY, ORDER_ITEM_ID, HAIER_MODEL, CUSTOMER_MODEL, AFFIRM_NUM, ATTACH_ORDER
+        ) VALUES (
+         #{actCntItemCode}, #{actCntCode}||'/'||lpad(#{planCntCode},4,'0'), #{orderNum}, #{orderItemCode}, #{materialSetCode}, #{materialPartsCode}, #{splitFlag}, #{budgetQuantity}, #{materialPackage}, #{grossWeight}, #{volume}, #{scanQuantity}, #{scanFinishFlag}, #{activeFlag}, #{createdBy}, #{created}, #{lastUpdBy}, #{lastUpd}, #{modificationNum}, #{containerType}, #{containerQuantity}, #{orderItemId}, #{haierModel}, #{customerModel}, #{affirmNum}, #{attachOrder}       
+        )
+    ]]>
+	</insert>
+    
+	<insert id="ActCntItem.copyCntItemToReturn">
+    <![CDATA[
+        INSERT INTO ACT_CNT_ITEM_RETURN SELECT T.* FROM ACT_CNT_ITEM T WHERE T.ACT_CNT_CODE = #{actCntCode} 
+    ]]>
+	</insert>
+	
+	<update id="ActCntItem.update" >
+    <![CDATA[
+        UPDATE ACT_CNT_ITEM SET
+	        ACT_CNT_CODE = #{actCntCode} , ORDER_NUM = #{orderNum} , ORDER_ITEM_CODE = #{orderItemCode} , MATERIAL_SET_CODE = #{materialSetCode} , MATERIAL_PARTS_CODE = #{materialPartsCode} , SPLIT_FLAG = #{splitFlag} , BUDGET_QUANTITY = #{budgetQuantity} , MATERIAL_PACKAGE = #{materialPackage} , GROSS_WEIGHT = #{grossWeight} , VOLUME = #{volume} , SCAN_QUANTITY = #{scanQuantity} , SCAN_FINISH_FLAG = #{scanFinishFlag} , ACTIVE_FLAG = #{activeFlag} , CREATED_BY = #{createdBy} , CREATED = #{created} , LAST_UPD_BY = #{lastUpdBy} , LAST_UPD = #{lastUpd} , MODIFICATION_NUM = #{modificationNum} , CONTAINER_TYPE = #{containerType} , CONTAINER_QUANTITY = #{containerQuantity} , ORDER_ITEM_ID = #{orderItemId} , HAIER_MODEL = #{haierModel} , CUSTOMER_MODEL = #{customerModel} , AFFIRM_NUM = #{affirmNum}  
+        WHERE 
+        	ACT_CNT_ITEM_CODE = #{actCntItemCode}  	        
+    ]]>
+	</update>
+	
+	<!-- zhangjk 修改 Start -->
+	<delete id="ActCntItem.deleteActItem">
+	    <![CDATA[
+	        DELETE FROM ACT_CNT_ITEM 
+            WHERE 
+        	    ORDER_NUM = #{orderCode} 
+	    ]]>
+	</delete>
+	<!-- zhangjk 修改End -->
+
+    <delete id="ActCntItem.delete">
+    <![CDATA[
+        DELETE FROM ACT_CNT_ITEM WHERE
+        ORDER_NUM = #{id} 
+    ]]>
+    </delete>
+    
+    <select id="ActCntItem.getById" resultMap="RM_ActCntItem">
+		SELECT <include refid="ActCntItem.columns" />
+	    <![CDATA[
+		    FROM ACT_CNT_ITEM 
+	        WHERE 
+		        ACT_CNT_ITEM_CODE = #{id} 
+	    ]]>
+	</select>
+	
+	<sql id="ActCntItem.findPage.where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	      				
+	       <if test="@Ognl@isNotEmpty(actCntItemCode)">
+				AND ACT_CNT_ITEM_CODE = #{actCntItemCode}
+			</if>
+	       <if test="@Ognl@isNotEmpty(actCntCode)">
+				AND ACT_CNT_CODE = #{actCntCode}
+			</if>
+	       <if test="@Ognl@isNotEmpty(orderNum)">
+				AND ORDER_NUM = #{orderNum}
+			</if>
+	       <if test="@Ognl@isNotEmpty(orderItemCode)">
+				AND ORDER_ITEM_CODE = #{orderItemCode}
+			</if>
+	       <if test="@Ognl@isNotEmpty(materialSetCode)">
+				AND MATERIAL_SET_CODE = #{materialSetCode}
+			</if>
+	       <if test="@Ognl@isNotEmpty(materialPartsCode)">
+				AND MATERIAL_PARTS_CODE = #{materialPartsCode}
+			</if>
+	       <if test="@Ognl@isNotEmpty(splitFlag)">
+				AND SPLIT_FLAG = #{splitFlag}
+			</if>
+	       <if test="@Ognl@isNotEmpty(budgetQuantity)">
+				AND BUDGET_QUANTITY = #{budgetQuantity}
+			</if>
+	       <if test="@Ognl@isNotEmpty(materialPackage)">
+				AND MATERIAL_PACKAGE = #{materialPackage}
+			</if>
+	       <if test="@Ognl@isNotEmpty(grossWeight)">
+				AND GROSS_WEIGHT = #{grossWeight}
+			</if>
+	       <if test="@Ognl@isNotEmpty(volume)">
+				AND VOLUME = #{volume}
+			</if>
+	       <if test="@Ognl@isNotEmpty(scanQuantity)">
+				AND SCAN_QUANTITY = #{scanQuantity}
+			</if>
+	       <if test="@Ognl@isNotEmpty(scanFinishFlag)">
+				AND SCAN_FINISH_FLAG = #{scanFinishFlag}
+			</if>
+			 
+<!-- 			<if test="@Ognl@isEmpty(scanFinishFlag)"> -->
+<!-- 			    AND SCAN_FINISH_FLAG IS NULL -->
+<!-- 			</if> -->
+			
+	       <if test="@Ognl@isNotEmpty(activeFlag)">
+				AND ACTIVE_FLAG = #{activeFlag}
+			</if>
+	       <if test="@Ognl@isNotEmpty(createdBy)">
+				AND CREATED_BY = #{createdBy}
+			</if>
+	       <if test="@Ognl@isNotEmpty(created)">
+				AND CREATED = #{created}
+			</if>
+	       <if test="@Ognl@isNotEmpty(lastUpdBy)">
+				AND LAST_UPD_BY = #{lastUpdBy}
+			</if>
+	       <if test="@Ognl@isNotEmpty(lastUpd)">
+				AND LAST_UPD = #{lastUpd}
+			</if>
+	       <if test="@Ognl@isNotEmpty(modificationNum)">
+				AND MODIFICATION_NUM = #{modificationNum}
+			</if>
+	       <if test="@Ognl@isNotEmpty(containerType)">
+				AND CONTAINER_TYPE = #{containerType}
+			</if>
+	       <if test="@Ognl@isNotEmpty(containerQuantity)">
+				AND CONTAINER_QUANTITY = #{containerQuantity}
+			</if>
+	       <if test="@Ognl@isNotEmpty(orderItemId)">
+				AND ORDER_ITEM_ID = #{orderItemId}
+			</if>
+	       <if test="@Ognl@isNotEmpty(haierModel)">
+				AND HAIER_MODEL = #{haierModel}
+			</if>
+	       <if test="@Ognl@isNotEmpty(customerModel)">
+				AND CUSTOMER_MODEL = #{customerModel}
+			</if>
+	       <if test="@Ognl@isNotEmpty(affirmNum)">
+				AND AFFIRM_NUM = #{affirmNum}
+			</if>
+		</where>
+	</sql>
+		
+    <select id="ActCntItem.findPage.count" resultType="long">
+        SELECT count(*) FROM ACT_CNT_ITEM 
+		<include refid="ActCntItem.findPage.where"/>    
+    </select>
+    
+    <select id="ActCntItem.findList" resultMap="RM_ActCntItem">
+    	SELECT <include refid="ActCntItem.columns" />
+	    FROM ACT_CNT_ITEM  
+		<include refid="ActCntItem.findPage.where"/>
+    </select>
+    <select id="ActCntItem.findListByOrderCode" resultMap="RM_ActCntItem">
+    	SELECT <include refid="ActCntItem.columns" />
+	    FROM ACT_CNT_ITEM  
+		WHERE ORDER_NUM = #{orderNum}
+    </select>
+    
+    <select id="ActCntItem.findPage" resultMap="RM_ActCntItem">
+			<include refid="pagination_Head"/>
+    		SELECT <include refid="ActCntItem.columns" />
+	    FROM ACT_CNT_ITEM 
+		<include refid="ActCntItem.findPage.where"/>
+    	<include refid="pagination_Tail"/>
+		
+    </select>
+    
+    <!-- 通过订单编码、行项目号 查询订单行项目预算箱量 Guomm -->
+	<select id="get" resultMap="RM_ActCntItem">
+	    SELECT * FROM ACT_CNT_ITEM
+	    WHERE ORDER_NUM= #{orderNum} AND ORDER_ITEM_CODE= #{orderItemCode}
+	</select>
+	
+	<!-- 通过订单号和行项目号 得到 已分配的总数量 -->
+	<select id="ActCntItem.getTotalNum" resultType="long">
+	    SELECT sum(t.budget_quantity) FROM ACT_CNT_ITEM t , ACT_CNT P
+	    WHERE T.ACT_CNT_CODE = P.LOADING_PLAN_CODE and ORDER_NUM= #{orderNum}
+	</select>
+	<!-- 根据订舱号来查询 箱型 箱量 -->
+	<select id="ActCntItem.queryType.quentity" resultMap="RM_ActCntItem">
+		select sum(m.container_quantity) as container_quantity, m.container_type as container_type
+		  from act_cnt_item m
+		 where m.order_num in (select t.order_code
+		                         from act_book_order_item t
+		                        where t.book_code = #{orderNum})
+		 group by m.container_type
+	</select>
+	
+	<!-- 根据装箱预编号查询装箱明细 -->
+	<select id="getActCntItem" resultMap="RM_ActCntItemQuery">
+        SELECT distinct AI.*,
+	           CD.DEPT_NAME_CN FACTORY_NAME,
+	           DL.DEPT_NAME    SERVER_NAME,
+	           SA.STATUS_CODE  AS statusCode,
+	           AC.PACKING_TYPE AS packageType
+		      FROM ACT_CNT_ITEM AI,
+		           (SELECT * FROM SO_ACT SA WHERE SA.ACT_ID = 'bookCabinConfirm') SA,
+		           ACT_PREPARE_ORDER PO,
+		           ACT_CNT AC,
+		           (SELECT * FROM CD_DEPARTMENT CD WHERE CD.DEPT_TYPE = 0) CD,
+		           CD_DB_LINK DL, SO_SALES_ORDER MM
+		     WHERE AI.ORDER_NUM = PO.ORDER_NUM(+)
+		       AND PO.FACTORY_PRODUCE_CODE = CD.DEPT_CODE(+)
+		       AND CD.WMS_SERVER = DL.DB_ID(+)
+		       AND AI.ORDER_NUM = SA.ORDER_NUM(+)
+		       AND AI.ACT_CNT_CODE = AC.ACT_CNT_CODE(+)
+		       AND AI.ACT_CNT_CODE = #{loadingPlanCode}
+		       AND AI.ORDER_NUM = MM.ORDER_CODE
+		       <![CDATA[
+		       AND (MM.ORDER_AUDIT_FLAG < '2' or MM.ORDER_AUDIT_FLAG > '2')
+		       ]]>
+	</select>
+	
+	<!-- 通过装箱预编码获得订单编码 -->
+	<select id="getOrderCodeByLoadingPlanCode" resultType="String">
+	     SELECT DISTINCT CI.ORDER_NUM FROM ACT_CNT_ITEM CI
+         WHERE CI.ACT_CNT_CODE IN
+       <foreach collection="array" open="(" separator="," close=")" item="item">
+           #{item}
+       </foreach>
+	</select>
+	<select id="getOrderCodeByLoadingPlan" resultType="String">
+	     SELECT DISTINCT CI.ORDER_NUM FROM ACT_CNT_ITEM CI
+         WHERE CI.ACT_CNT_CODE = #{item}
+	</select>
+	
+	<select id="getLoadingPlanCodeByOrderCode" resultType="String">
+	     SELECT DISTINCT AI.ACT_CNT_CODE FROM ACT_CNT_ITEM AI
+	     WHERE AI.ORDER_NUM = #{orderCode}
+	</select>
+	
+	<!--×××××××××××××××××××××××××××××××× 通过装箱预编码、订单编码获得发送工厂数据  ×××××××××××××××××××××××××××××-->
+	<select id="getSendData" resultType="java.util.HashMap">
+       SELECT AC.ACT_CNT_CODE AS CNT_ID,
+              AI.ACT_CNT_ITEM_CODE AS CNT_ITEM_ID,
+              BO.BOOK_SPLIT_ORDER_CODE AS BILL_LOADING_CODE,
+              AI.MATERIAL_PARTS_CODE || '00' AS REL_MATERIAL_CODE,
+              AI.MATERIAL_PARTS_CODE AS MATNR,
+              AC.LOADING_PLAN_CODE AS CNT_BG_CODE,
+              PO.ACT_PREPARE_CODE AS TD_NAME,
+              AI.BUDGET_QUANTITY AS DN_LFIMG,
+              OI.CUSTOMER_MODEL AS ARKTX,
+              SO.ORDER_SHIP_DATE AS BDHAO,
+              CC.NAME AS QUXIANG,
+              DECODE(OI.UNIT, 'PC', 'TAI', 'SET', 'TAO', OI.UNIT) AS DANWEI,
+              CD.DEPT_NAME_CN AS BEZEI,
+              AI.CUSTOMER_BOX_CODE AS KHM,
+              AI.HAIER_MODEL AS HAIER_MODEL,
+              OI.PROD_T_CODE AS PROD_T_CODE,
+              CT.PROD_TYPE AS PROD_TYPE,
+              AI.VOLUME*AI.BUDGET_QUANTITY AS VOLUME1,
+              CM.GROSS_VALUE*AI.BUDGET_QUANTITY AS VOLUME2,
+              AI.ATTACH_ORDER
+         FROM ACT_CNT AC,
+              ACT_CNT_ITEM AI,
+              SO_SALES_ORDER_ITEM OI,
+              SO_SALES_ORDER SO,
+              ACT_PREPARE_ORDER PO,
+              ACT_BOOK_ORDER_ITEM BI,
+              ACT_BOOK_ORDER BO,
+              CD_COUNTRY CC,
+              CD_MATERIAL CM,
+              CD_PROD_TYPE CT,
+              (SELECT * FROM CD_DEPARTMENT WHERE DEPT_TYPE = '0') CD
+        WHERE AC.LOADING_PLAN_CODE = AI.ACT_CNT_CODE
+          AND AI.ORDER_NUM = OI.ORDER_CODE
+          AND AI.ORDER_ITEM_CODE = OI.ORDER_ITEM_LINECODE
+          AND OI.ORDER_CODE = SO.ORDER_CODE
+          AND SO.ORDER_CODE = PO.ORDER_NUM
+          AND AI.ORDER_NUM = BI.ORDER_CODE(+)
+          AND AI.ORDER_ITEM_CODE = BI.ORDER_ITEM_CODE(+)
+          AND BI.BOOK_CODE = BO.BOOK_CODE(+)
+          AND SO.COUNTRY_CODE = CC.COUNTRY_CODE(+)
+          AND PO.FACTORY_PRODUCE_CODE = CD.DEPT_CODE(+)
+          AND CM.MATERIAL_CODE = AI.MATERIAL_SET_CODE
+          AND CT.PROD_TYPE_CODE = OI.PROD_T_CODE
+	      AND AI.ORDER_NUM = #{orderNum}
+	</select>
+	<!--×××××××××××××××××××××××××××××××× 通过装箱预编码、订单编码获得发送工厂数据  ×××××××××××××××××××××××××××××-->
+	
+	<!-- ####################################  抓取已发送工厂未装箱完毕的订单号  ########################### -->
+	<select id="getNoScanOkOrderCode" resultMap="RM_ActCntItem">
+	SELECT DISTINCT AI.ORDER_NUM,AI.ACT_CNT_CODE  FROM ACT_CNT_ITEM AI
+    WHERE AI.ACT_CNT_CODE IN(
+      SELECT AC.LOADING_PLAN_CODE FROM ACT_CNT AC
+      WHERE AC.LOADING_FLAG = 0
+    )
+	</select>
+	<!-- ####################################  抓取已发送工厂未装箱完毕的订单号  ########################### -->
+ 
+	<!-- ############################### 从工厂抓取  扫描数量、回箱时间、集装箱号哦         ########################### -->
+	
+	<!-- ******************************* 更新装箱预算主信息    回想时间、集装箱号、封箱状态   *********************** -->
+	<update id="updateMainStatus">
+		UPDATE ACT_CNT AC
+		   SET AC.BACK_CNT_DATE = (
+		         SELECT MAX(AI.BACK_CNT_DATE) FROM ACT_CNT_ITEM AI
+		         WHERE AI.ACT_CNT_CODE = AC.LOADING_PLAN_CODE
+		       ),
+		       AC.LOADING_BOX_CODE = (
+		         SELECT MAX(LOADING_BOX_CODE) FROM ACT_CNT_ITEM AI
+		         WHERE AI.ACT_CNT_CODE = AC.LOADING_PLAN_CODE
+		       ),
+	           AC.LOADING_FLAG = CASE WHEN (
+	             SELECT COUNT(0) FROM ACT_CNT_ITEM AI
+	             WHERE AI.ACT_CNT_CODE = AC.LOADING_PLAN_CODE
+	             <![CDATA[
+	             AND ( AI.SCAN_FINISH_FLAG < '1' OR AI.SCAN_FINISH_FLAG > '1' OR AI.SCAN_FINISH_FLAG IS NULL )
+	             ]]>
+	           ) > 0 THEN 0 ELSE 1 END
+		 WHERE AC.LOADING_PLAN_CODE IN (
+		         SELECT DISTINCT AI.ACT_CNT_CODE FROM ACT_CNT_ITEM AI
+		         WHERE AI.ORDER_NUM = #{orderCode}
+		       )
+	</update>
+	<!-- *******************************   更新装箱预算主信息    回想时间、集装箱号、封箱状态   *********************** -->
+	
+	
+	
+	<select id="findCntItemByOrderCode" resultMap="RM_ActCntItem">
+	     SELECT * FROM ACT_CNT_ITEM AI WHERE AI.ORDER_NUM = #{orderCode}
+	</select>
+	<select id="getCntBagCode" resultMap="RM_ActCntItem">
+	     SELECT * FROM ACT_CNT_ITEM AI WHERE AI.ACT_CNT_CODE = #{actCntCode}
+	</select>
+	<!-- zhangjk 根据标准箱方案号、集装箱序号、订单号查询装箱明细所需要的数据 Start -->
+	<resultMap  id="RM_ActCntItemAll"  type="com.haier.hrois.order.cnt.query.ActCntItemQuery">
+	    <result property="orderItemId" column="order_item_id" />
+	    <result property="orderItemCode"  column="order_item_linecode" />
+	    <result property="haierModel"  column="prod_code" />
+	    <result property="affirmNum"  column="affirm_num" />
+	    <result property="customerModel"  column="customer_model" />
+	    <result property="materialSetCode"  column="material_code" />
+	    <result property="containerType"  column="cnt_typ" />
+	    <result property="budgetQuantity"  column="quaTotal" />
+	    <result property="grossWeight"  column="grossWeightTotal" />
+	    <result property="volume"  column="volumeTotal" />
+	</resultMap>
+	<select id="ActCntItem.listActCntItem"  resultMap="RM_ActCntItemAll">
+	    SELECT  s.order_item_id,
+	            s.order_item_linecode,
+                t.prod_code,
+                t.affirm_num,
+                s.customer_model,
+                p.material_code,
+                t.cnt_typ,
+                p.min_quantity quaTotal,
+                p.gross_weight grossWeightTotal,
+                p.gross_value volumeTotal
+          FROM  cd_special_cnt_item t, cd_special_cnt_prod p, so_sales_order_item s
+         WHERE  t.special_cnt_id = #{specialCntId}
+           AND  t.cnt_order = #{cntOrder}
+           AND  t.special_cnt_prod_id = p.special_cnt_prod_id
+           AND  p.material_code = s.material_code
+           AND  s.order_code = #{orderNum}
+      GROUP BY  p.material_code, 
+                s.order_item_linecode ,
+                t.prod_code, 
+                t.affirm_num,
+                t.cnt_typ, 
+                s.customer_model,
+                s.order_item_id,
+                p.min_quantity,
+                p.gross_weight,
+                p.gross_value
+	</select>
+	<!-- zhangjk 根据标准箱方案号、集装箱序号、订单号查询装箱明细所需要的数据 End -->
+	
+	<delete id="ActCntItem.deleteByActcntCode">
+    <![CDATA[
+        DELETE FROM ACT_CNT_ITEM WHERE
+        ACT_CNT_CODE = #{actCntCode} 
+    ]]>
+    </delete>
+    
+    <!-- 根据主键删除 -->
+    <delete id="ActCntItem.deleteByActcntItemCode">
+    <![CDATA[
+        DELETE FROM ACT_CNT_ITEM WHERE ACT_CNT_ITEM_CODE = #{actCntItemCode} 
+    ]]>
+    </delete>
+    
+    <select id="ActCntItem.getByActcntCode" resultMap="RM_ActCntItem">
+		SELECT distinct AI.Order_Num FROM ACT_CNT_ITEM AI WHERE AI.act_cnt_code = #{actCntCode}
+	</select>
+	
+	<select id="ActCntItem.getMaxBackCntDateByOrderCode" resultType="date">
+	    SELECT MAX(AI.BACK_CNT_DATE) FROM ACT_CNT_ITEM AI
+		WHERE AI.ORDER_NUM = #{orderCode}
+	</select>
+	
+	<select id="ActCntItem.getTaskDefKeyList" resultType="String">
+		select t.status_code
+		  from so_act t
+		 where t.act_id = 'packageBudget'
+		   and t.order_num = #{orderCode}
+	</select>
+	
+	<select id="ActCntItem.getProcessIdByOrderCode" resultType="String">
+		select t.processinstance_id 
+		  from wf_procinstance t
+		 where t.businform_id = #{orderCode}
+		 <![CDATA[
+		   and ( t.processdefinition_key < 'PrepareRelease' or  t.processdefinition_key > 'PrepareRelease')
+		 ]]>
+	</select>
+	
+	<!-- 发送邮件人员查询 -->
+	<select id="ActCntItem.sendEmail" resultType="String">
+		select distinct m.email
+			  from user_group       t,
+			       group_info       p,
+			       user_info        m,
+			       user_data_config k,
+			       act_cnt_item     o,
+			       so_sales_order   n
+			 where t.group_id = p.id
+			   and t.user_id = m.id
+			   and k.employee_code = m.emp_code
+			   and n.factory_code = k.config_value(+)
+			   and o.order_num = n.order_code
+			   and k.config_type = 'FACTORY'
+			   and p.id = '15'
+			   and m.status = 1
+			   and o.act_cnt_code = #{code}
+	</select>
+	
+	<!-- 数量查询 -->
+	<select id="ActCntItem.getSumNumber" resultType="long">
+		select sum(t.budget_quantity) from act_cnt_item t where t.order_num = #{orderNum} and t.act_cnt_code = #{actCntCode}
+	</select>
+	
+	<!-- 根据预编号查询物料个数 -->
+    <select id="ActCntItem.getMaterialByLoadingPlanCode" resultType="string">
+    	<![CDATA[
+            SELECT DISTINCT M.MATERIAL_SET_CODE
+  			  FROM ACT_CNT_ITEM M
+             WHERE M.ACT_CNT_CODE = #{loadingPlanCode}
+        ]]>
+    </select>
+   <!-- ############################### 从工厂抓取  扫描数量、回箱时间、集装箱号哦     徐艺航     ###########################  -->
+	<update id="updActCntItemScanQuantity">
+       <!-- 
+        UPDATE ACT_CNT_ITEM AI
+          SET AI.SCAN_QUANTITY    = #{scanQuantity},
+              AI.SCAN_FINISH_FLAG = #{scanFinishFlag},
+              AI.LOADING_BOX_CODE = #{loadingBoxCode},
+              AI.BACK_CNT_DATE    = #{backCntDate}
+        WHERE AI.ACT_CNT_ITEM_CODE = #{actCntItemCode}
+        -->
+
+        UPDATE ACT_CNT_ITEM AI
+          <set>
+              AI.SCAN_QUANTITY    = #{scanQuantity},
+              AI.SCAN_FINISH_FLAG = #{scanFinishFlag},
+              AI.LOADING_BOX_CODE = #{loadingBoxCode},
+              AI.BACK_CNT_DATE    = #{backCntDate}
+              <if test="inBound!=null and inBound!='' and isChanged != null and isChanged != ''">
+              ,AI.IN_BOUND = #{inBound}
+              </if>
+          </set> 
+    
+        WHERE AI.ACT_CNT_ITEM_CODE = #{actCntItemCode}
+        
+	</update>
+	<update id="updActCntItemScan">
+       UPDATE ACT_CNT_ITEM AI
+          SET AI.SCAN_QUANTITY    = #{scanQuantity},
+              AI.SCAN_FINISH_FLAG = #{scanFinishFlag},
+              AI.LOADING_BOX_CODE = #{loadingBoxCode},
+              AI.BACK_CNT_DATE    = #{backCntDate}
+         WHERE AI.ACT_CNT_ITEM_CODE = #{actCntItemCode}
+	</update>
+    <!-- 通过装箱预编号获取工厂号   徐艺航-->
+	<select id="getFactoryCode" resultMap="RM_ActCntItemQuery">
+	  SELECT DISTINCT I.FACTORY_CODE AS AFFIRM_NUM,T.ACT_CNT_CODE AS ORDER_ITEM_ID
+	  FROM ACT_CNT_ITEM T,SO_SALES_ORDER_ITEM I
+	   WHERE T.ORDER_ITEM_CODE = I.ORDER_ITEM_LINECODE
+	   AND T.ORDER_NUM = I.ORDER_CODE
+	   AND T.ACT_CNT_CODE = #{actCntItemCode}
+	</select>
+	
+    <!-- *******************更新传入SAP箱号状态 ************************ -->
+	<update id="updateMainStatusWithSapFlag">
+		UPDATE ACT_CNT AC
+		   SET AC.LCODE_SAPFLAG = '2'
+		 WHERE AC.LOADING_PLAN_CODE IN (
+		         SELECT DISTINCT AI.ACT_CNT_CODE FROM ACT_CNT_ITEM AI
+		         WHERE AI.IN_BOUND IS NOT NULL AND AI.ORDER_NUM = #{orderCode}
+		       )
+	</update>
+	
+    <!-- ****************************箱封号更新containerNo到HOPE********************************* -->
+	<update id="updateMainSAPFLAGByOrderCode" parameterType="map">
+		<!-- 
+		UPDATE ACT_CNT AC
+        SET
+        AC.LCODE_SAPFLAG = '1'
+        ,AC.SAP_UPDATE_BY = #{empCode}
+		WHERE AC.LOADING_PLAN_CODE IN (
+		         SELECT DISTINCT AI.ACT_CNT_CODE FROM ACT_CNT_ITEM AI
+		         WHERE AI.ORDER_NUM = #{orderCode})		
+		 -->
+
+		UPDATE ACT_CNT AC
+        SET
+        AC.LCODE_SAPFLAG = '1'
+        ,AC.SAP_UPDATE_BY = #{empCode}
+		WHERE AC.LOADING_PLAN_CODE = #{actCntCode}
+	</update>
+	
+    <select id="ActCntItem.getEmailContent" resultType="map">
+	
+	 SELECT
+		AI.ORDER_NUM,
+		AC.BELONG_ORDER,
+		SO.FACTORY_CODE,
+		CC.NAME COUNTRY_NAME,
+		SO.ORDER_PROD_MANAGER,
+		UI2.EMAIL PROD_EMAIL,
+		UI2.NAME PROD_NAME,
+		SO.ORDER_EXEC_MANAGER,
+        UI.NAME EXEC_NAME,
+        UI.EMAIL EXEC_EMAIL,
+		AI.ACT_CNT_CODE,
+		AI.LOADING_BOX_CODE,
+		null OLD_LOADING_BOX_CODE,
+		AC.BUDGET_QUANTITY,
+		DECODE(AC.PACKING_TYPE,'1','整箱','2','拼箱','3','散件标准箱','') PACKING_TYPE,
+		AC.CNT_ID,
+        listagg(UI3.NAME,',') WITHIN GROUP(ORDER BY UI3.NAME) AS TRANS_NAME,
+        listagg(UI3.EMAIL,',') WITHIN GROUP(ORDER BY UI3.EMAIL) AS TRANS_EMAIL
+	FROM
+		ACT_CNT_ITEM AI
+	    LEFT JOIN SO_SALES_ORDER SO ON AI.ORDER_NUM = SO.ORDER_CODE
+	    LEFT JOIN ACT_CNT AC ON AI.ACT_CNT_CODE = AC.LOADING_PLAN_CODE
+	    LEFT JOIN CD_COUNTRY CC ON SO.COUNTRY_CODE = CC.COUNTRY_CODE
+		LEFT JOIN USER_INFO UI ON SO.ORDER_EXEC_MANAGER = UI.EMP_CODE AND UI.STATUS='1'
+  		LEFT JOIN USER_INFO UI2 ON SO.ORDER_PROD_MANAGER = UI2.EMP_CODE AND UI2.STATUS='1'
+   		LEFT JOIN USER_DATA_CONFIG UDC ON SO.FACTORY_CODE = UDC.CONFIG_VALUE
+		LEFT JOIN USER_GROUP UG ON UDC.EMPLOYEE_CODE = UG.EMP_CODE
+		LEFT JOIN ROLE_GROUP RG ON UG.GROUP_ID = RG.GROUP_ID
+   		LEFT JOIN USER_INFO UI3 ON UDC.EMPLOYEE_CODE = UI3.EMP_CODE AND UI3.STATUS='1' AND UI3.EMAIL IS NOT NULL AND UI3.EMP_CODE !='admin'
+	WHERE 1=1
+	 	AND AI.ACT_CNT_ITEM_CODE = #{actCntItemCode}
+	 	AND SO.ACTIVE_FLAG = '1'
+	 	AND UDC.CONFIG_TYPE='FACTORY' 
+	 	AND UDC.ACTIVE_FLAG='1' 
+	 	AND RG.ROLE_ID = '15'
+    GROUP BY
+    	AI.ORDER_NUM,
+		AC.BELONG_ORDER,
+		SO.FACTORY_CODE,
+		CC.NAME,
+		SO.ORDER_PROD_MANAGER,
+		UI2.EMAIL,
+		UI2.NAME,
+		SO.ORDER_EXEC_MANAGER,
+     	UI.NAME,
+     	UI.EMAIL,
+		AI.ACT_CNT_CODE,
+		AI.LOADING_BOX_CODE,
+	  	null,
+	  	AC.BUDGET_QUANTITY,
+	  	DECODE(AC.PACKING_TYPE,'1','整箱','2','拼箱','3','散件标准箱',''),
+	  	AC.CNT_ID
+		   
+	</select>
+	
+	<select id="getIsChuYunOrder" resultType="int">
+		SELECT
+			COUNT(ASO.ORDER_NUM)
+		FROM	
+			ACT_SHIP_ORDER ASO
+		LEFT JOIN SO_ACT SA ON ASO.ORDER_NUM = SA.ORDER_NUM
+		AND SA.ACT_ID = 'shipMent'
+		WHERE
+			ASO.ACTIVE_FLAG = '1'
+		AND SA.STATUS_CODE = 'end'
+		AND ASO.ORDER_NUM LIKE '%'||#{orderCode}||'%'
+	</select>
+    <select id="findCntItemByOrderCodeAndLoadCode" resultMap="RM_ActCntItem" parameterType="map">
+	     SELECT * FROM ACT_CNT_ITEM AI WHERE AI.ORDER_NUM = #{orderCode} AND AI.ACT_CNT_CODE=#{actCntCode}
+	</select>
+	
+	
+	<!--备件订单随整机装箱扫描发货 -->
+	<!--更新整机装箱信息，关联备件订单  -->
+	<!--20200324  YXB -->
+	<update id="updateAttachOrder">
+		UPDATE ACT_CNT_ITEM C SET C.ATTACH_ORDER = #{attachOrder} WHERE C.ORDER_NUM = #{orderNum}
+	</update>
+	
+	<!--备件订单随整机装箱扫描发货 -->
+	<!--根据备件订单号查询关联装箱的并且已经发送工厂的整机订单号 -->
+	<!--20200324  YXB -->
+	<select id="selectOrderLoadingStatus" resultType="String">
+	    SELECT DISTINCT CI.ORDER_NUM
+		  FROM ACT_CNT C
+		 INNER JOIN ACT_CNT_ITEM CI
+		    ON CI.ACT_CNT_CODE = C.LOADING_PLAN_CODE
+		 WHERE CI.ATTACH_ORDER = #{attachOrder}
+		   AND C.LOADING_FLAG IN ('0', '1')
+	</select>
+	
+	<!--备件订单随整机装箱扫描发货  -->
+	<!--删除备件订单与整机订单装箱信息关联关系  -->
+	<!--20200324  YXB  -->
+	<update id="deleteLoadingAttachOrder">
+        UPDATE ACT_CNT_ITEM C SET C.ATTACH_ORDER = '' WHERE C.ATTACH_ORDER = #{attachOrder}
+	</update>
+	
+	<!--备件订单随整机装箱扫描发货  -->
+	<!--根据整机订单号更新一起装箱发运的备件订单号  -->
+	<!--20200324  YXB  -->
+	<update id="updateLoadingAttachOrder">
+		UPDATE ACT_CNT_ITEM C
+		   SET C.ATTACH_ORDER =
+		       (SELECT DISTINCT S.ORDER_CODE
+		          FROM SO_SALES_ORDER S
+		         INNER JOIN (SELECT DISTINCT BI.ORDER_CODE
+		                      FROM ACT_BOOK_ORDER_ITEM T
+		                     INNER JOIN ACT_BOOK_ORDER_ITEM BI
+		                        ON BI.BOOK_CODE = T.BOOK_CODE) BB
+		            ON BB.ORDER_CODE = S.SP_ZOR
+		         INNER JOIN SO_ACT A
+		            ON A.ORDER_NUM = S.ORDER_CODE
+		           AND A.ACT_ID = 'bookCabinConfirm'
+		           AND A.STATUS_CODE = 'end'
+		           AND BB.ORDER_CODE = #{orderNum}
+		         WHERE S.ORDER_AUDIT_FLAG != '2')
+		 WHERE C.ORDER_NUM = #{orderNum}
+	</update>
+	
+	
+	
+</mapper>
+

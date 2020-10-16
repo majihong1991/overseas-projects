@@ -1,0 +1,50 @@
+select  * from SEE_FEE a where a.order_code = '0004262095'
+
+
+SELECT P.XLH,
+           (SELECT MAX(O.FEE_ROW_ID)
+              FROM SEE_FEE_ITEM O
+             WHERE O.ORDER_CODE = M.ORDER_NUM),
+           M.ORDER_NUM,
+           (SELECT NVL(SUM(N.ACTUAL_AMOUNT), 0)
+              FROM SEE_FEE_ITEM N
+             WHERE N.ORDER_CODE = M.ORDER_NUM),
+           P.CURRENCY,
+           '1',
+           NULL,
+           P.EMP_CODE,
+           SYSDATE,
+           NULL,
+           NULL
+      FROM SEE_FEE_BILL P, ACT_SHIP_ORDER M,SO_SALES_ORDER SO
+     WHERE P.BILL_NUM = M.BILL_NUM
+       AND P.BILL_NUM = '12715946'
+       AND SO.ORDER_CODE = M.ORDER_NUM
+
+
+update SEE_FEE c
+   set c.amount =
+       (SELECT B.AMOUNT
+          FROM IF_BCC_FEE B, AA_LIN_TEMP2 a
+         WHERE B.ORDER_NUM = a.char1
+           AND B.SUBJECT_NAME = '59'
+           and c.order_code = a.char1
+           AND B.SUB_SUBJECT IS NULL)
+ where EXISTS (SELECT 1
+          FROM IF_BCC_FEE B, AA_LIN_TEMP2 a
+         WHERE B.ORDER_NUM = a.char1
+           AND B.SUBJECT_NAME = '59'
+           and c.order_code = a.char1
+           AND B.SUB_SUBJECT IS NULL);
+
+--修改比较值
+update SEE_FEE c
+   set c.bijiao =
+       (c.actual_amount - c.amount)
+ where c.order_code in (select char1 from AA_LIN_TEMP2);
+
+--修改差异值
+update SEE_FEE c
+   set c.chayi =
+       (c.actual_amount - c.amount)
+ where c.order_code in (select char1 from AA_LIN_TEMP2);
