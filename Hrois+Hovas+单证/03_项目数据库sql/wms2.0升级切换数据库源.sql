@@ -5,8 +5,9 @@ SELECT *
    AND CD.DEPT_TYPE = 0;
    
 select * from CD_DEPARTMENT where dept_code in( '9090') --for update;
-select * from CD_DEPARTMENT where  WMS_SERVER = '20130618034' for update;
+select * from CD_DEPARTMENT where  WMS_SERVER = '20130618036' for update;
 
+select * from CD_DB_LINK where DB_ID in ('20130618036','20151125001')
 select * from CD_DB_LINK where DB_ID in ('20180206001','20200731001')  --for update;
 select * from CD_DB_LINK where DB_ID in ('20190318001','20200731002')  --for update;
 select * from CD_DB_LINK where DB_ID in ('20130618013','20200731003')  --for update;
