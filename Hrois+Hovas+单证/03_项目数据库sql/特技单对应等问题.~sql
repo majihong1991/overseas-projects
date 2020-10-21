@@ -1,0 +1,12 @@
+
+SELECT *
+  FROM CD_SPECIAL_CNT_item a
+ where a.special_cnt_prod_id in ('2020101700113637', '2020101700113638');
+
+SELECT *
+  FROM CD_SPECIAL_CNT_PROD a
+ where a.special_cnt_prod_id in ('2020101700113637', '2020101700113638');
+
+select *
+  from CD_SPECIAL_CNT c
+ where c.special_cnt_num like '%泰国散件五星36单相吊落机40HQ48内外机海尔牌201017%';
